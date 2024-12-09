@@ -17,12 +17,13 @@ import { Input } from "@/components/ui/input"
 import {Loader} from "lucide-react";
 import Link from "next/link";
 import {authFormSchema} from "@/lib/validate";
-import {loginUser, registerUser} from "@/lib/actions";
+import {loginUser, registerUser} from "@/lib/auth/actions";
 
 export type FormType = "sign-in" | "sign-up"
 
 const AuthForm = ({ type }: {type: FormType}) => {
     const [isLoading, setIsLoading] = React.useState(false);
+    const [errorMessage, setErrorMessage] = React.useState<string | null>(null)
     const formSchema = authFormSchema(type)
 
     const form = useForm<z.infer<typeof formSchema>>({
@@ -36,13 +37,21 @@ const AuthForm = ({ type }: {type: FormType}) => {
 
     const onSubmit = async (values: z.infer<typeof formSchema>) => {
         setIsLoading(true)
+        setErrorMessage("")
         try{
-            type === "sign-up"
+             const result = type === "sign-up"
                 ? await registerUser(values)
                 : await loginUser({ email: values.email, password: values.password })
-        } catch(error) {
-            console.log(error)
-        }finally {
+
+            if (!result?.success) {
+                setErrorMessage(result?.message) // Display API error
+            } else {
+                console.log(result.message) // Success message
+            }
+        } catch (error: any) {
+            setErrorMessage("An unexpected error occurred. Please try again.")
+            console.error(error)
+        } finally {
             setIsLoading(false)
         }
     }
@@ -55,13 +64,13 @@ const AuthForm = ({ type }: {type: FormType}) => {
                         <FormField
                             control={form.control}
                             name="username"
-                            render={({ field }) => (
+                            render={({field}) => (
                                 <FormItem>
                                     <FormLabel>Username</FormLabel>
                                     <FormControl>
                                         <Input className="shadow" placeholder="username" {...field} />
                                     </FormControl>
-                                    <FormMessage />
+                                    <FormMessage/>
                                 </FormItem>
                             )}
                         />
@@ -69,45 +78,55 @@ const AuthForm = ({ type }: {type: FormType}) => {
                     <FormField
                         control={form.control}
                         name="email"
-                        render={({ field }) => (
+                        render={({field}) => (
                             <FormItem>
                                 <FormLabel>Email</FormLabel>
                                 <FormControl>
                                     <Input className="shadow" placeholder="Enter your email" {...field} />
                                 </FormControl>
-                                <FormMessage />
+                                <FormMessage/>
                             </FormItem>
                         )}
                     />
                     <FormField
                         control={form.control}
                         name="password"
-                        render={({ field }) => (
+                        render={({field}) => (
                             <FormItem>
                                 <FormLabel>Password</FormLabel>
                                 <FormControl>
-                                    <Input type="password" className="shadow" placeholder="Enter your password" {...field} />
+                                    <Input type="password" className="shadow"
+                                           placeholder="Enter your password" {...field} />
                                 </FormControl>
-                                <FormMessage />
+                                <FormMessage/>
                             </FormItem>
                         )}
                     />
+                    {errorMessage && (
+                        <div className="flex justify-center">
+                            <p className="text-red-500 text-lg">
+                                {errorMessage}
+                            </p>
+                        </div>
+                    )}
                     <Button disabled={isLoading} className="form-button" type="submit">
                         {type === "sign-in" ? "Sign In" : "Sign Up"}
-                        {isLoading && (<Loader className="animate-spin" />)}
+                        {isLoading && (<Loader className="animate-spin"/>)}
                     </Button>
                     <div className="flex justify-center">
                         <p className="text-neutral-600">
                             {type === "sign-in"
-                        ? "Don't have an account?"
-                            : "Already have an account?"}
+                                ? "Don't have an account?"
+                                : "Already have an account?"}
                         </p>
-                        <Link href={type === "sign-in" ? "/sign-up" : "/sign-in"} className="ml-1 font-medium text-green">
+                        <Link href={type === "sign-in" ? "/sign-up" : "/sign-in"}
+                              className="ml-1 font-medium text-green">
                             {type === "sign-in" ? "Sign Up" : "Sign In"}
                         </Link>
                     </div>
                 </form>
             </Form>
+
         </>
     )
 }

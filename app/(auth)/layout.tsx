@@ -1,5 +1,5 @@
 import React from 'react'
-import {getSession} from "@/lib/actions";
+import {getSession} from "@/lib/auth/actions";
 import {redirect} from "next/navigation";
 
 const Layout = async ({ children }: {children: React.ReactNode}) => {

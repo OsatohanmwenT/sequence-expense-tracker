@@ -11,7 +11,7 @@ import {
     SidebarMenuItem, SidebarRail,
 } from "@/components/ui/sidebar"
 import Link from "next/link";
-import {logoutUser} from "@/lib/actions";
+import {logoutUser} from "@/lib/auth/actions";
 
 // Menu items.
 const items = [

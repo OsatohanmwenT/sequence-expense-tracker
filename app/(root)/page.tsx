@@ -3,7 +3,7 @@ import {SidebarTrigger} from "@/components/ui/sidebar";
 import SearchInput from "@/components/SearchInput";
 import CalendarRange from "@/components/CalendarRange";
 import {Download, Plus} from "lucide-react";
-import {getSession} from "@/lib/actions";
+import {getSession} from "@/lib/auth/actions";
 import {ArrowUp} from "lucide-react"
 
 const Page = async () => {

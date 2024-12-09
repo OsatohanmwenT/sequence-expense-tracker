@@ -17,7 +17,7 @@ export const loginUser = async (formData: { password: string; email: string }) =
 
         if (!response.ok) {
             const error = await response.json();
-            throw new Error(error.message || 'Login failed');
+            throw new Error(error.detail || 'Registration failed');
         }
 
         const { access_token, username } = await response.json();
@@ -38,9 +38,8 @@ export const loginUser = async (formData: { password: string; email: string }) =
             path: '/',
             sameSite: 'Strict',
         });
-    } catch (error) {
-        console.error(error);
-        throw error;
+    } catch (error: any) {
+        return { success: false, message: error.message };
     }
 };
 
@@ -56,14 +55,13 @@ export const registerUser = async (formData: { email: string; username?: string;
 
         if (!response.ok) {
             const error = await response.json();
-            throw new Error(error.message || 'Registration failed');
+            throw new Error(error.detail || 'Registration failed');
         }
 
         const { message } = await response.json();
-        return message;
-    } catch (error) {
-        console.error(error);
-        throw error;
+        return { success: true, message: message };
+    } catch (error: any) {
+        return { success: false, message: error.message };
     }
 };
 
