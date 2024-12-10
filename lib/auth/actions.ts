@@ -6,8 +6,7 @@ const apiUrl = process.env.NEXT_PUBLIC_API_URL;
 
 export const loginUser = async (formData: { password: string; email: string }) => {
     try {
-        // Send login request to the backend
-        const response = await fetch(`${apiUrl}/user/login`, {
+        const response = await fetch(`${apiUrl}/auth/user/login`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -21,20 +20,21 @@ export const loginUser = async (formData: { password: string; email: string }) =
         }
 
         const { access_token, username } = await response.json();
-        // Wait for the cookies store
+
         const cookieStore = await cookies();
 
-        // Set the access token cookie
+        // @ts-ignore
         cookieStore.set('access_token', access_token, {
             httpOnly: true,
-            maxAge: 60 * 60 * 24 * 7, // 7 days
+            maxAge: 60 * 60 * 24 * 14,
             path: '/',
             sameSite: 'Strict',
         });
 
+        // @ts-ignore
         cookieStore.set('user_data', username, {
             httpOnly: false,
-            maxAge: 60 * 60 * 24 * 7, // 7 days
+            maxAge: 60 * 60 * 24 * 14,
             path: '/',
             sameSite: 'Strict',
         });
@@ -45,7 +45,7 @@ export const loginUser = async (formData: { password: string; email: string }) =
 
 export const registerUser = async (formData: { email: string; username?: string; password: string }) => {
     try {
-        const response = await fetch(`${apiUrl}/register`, {
+        const response = await fetch(`${apiUrl}/auth/register`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

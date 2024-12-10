@@ -10,7 +10,7 @@ const Layout = async ({ children }: {children: React.ReactNode}) => {
     return (
         <div>
             <div className="max-w-[400px] mx-auto">
-              <h1 className="text-center text-green font-semibold text-3xl my-10">Sequence</h1>
+              <h1 className="text-center font-work-sans text-green font-semibold text-3xl my-10">Sequence</h1>
               {children}
             </div>
         </div>

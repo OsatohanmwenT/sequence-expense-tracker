@@ -59,7 +59,7 @@ const AuthForm = ({ type }: {type: FormType}) => {
         <>
             <Form {...form}>
                 <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4 flex flex-col">
-                    <h1 className="text-center font-bold text-neutral-800 text-4xl">{type === "sign-in" ? "Sign In" : "Sign Up"}</h1>
+                    <h1 className="text-center font-bold font-work-sans text-neutral-800 text-4xl">{type === "sign-in" ? "Sign In" : "Sign Up"}</h1>
                     {type === "sign-up" && (
                         <FormField
                             control={form.control}
@@ -68,7 +68,7 @@ const AuthForm = ({ type }: {type: FormType}) => {
                                 <FormItem>
                                     <FormLabel>Username</FormLabel>
                                     <FormControl>
-                                        <Input className="shadow" placeholder="username" {...field} />
+                                        <Input className="shadow font-helvetica" placeholder="username" {...field} />
                                     </FormControl>
                                     <FormMessage/>
                                 </FormItem>
@@ -82,7 +82,7 @@ const AuthForm = ({ type }: {type: FormType}) => {
                             <FormItem>
                                 <FormLabel>Email</FormLabel>
                                 <FormControl>
-                                    <Input className="shadow" placeholder="Enter your email" {...field} />
+                                    <Input className="shadow font-inter" placeholder="Enter your email" {...field} />
                                 </FormControl>
                                 <FormMessage/>
                             </FormItem>
@@ -95,7 +95,7 @@ const AuthForm = ({ type }: {type: FormType}) => {
                             <FormItem>
                                 <FormLabel>Password</FormLabel>
                                 <FormControl>
-                                    <Input type="password" className="shadow"
+                                    <Input type="password" className="shadow font-helvetica"
                                            placeholder="Enter your password" {...field} />
                                 </FormControl>
                                 <FormMessage/>
@@ -114,13 +114,13 @@ const AuthForm = ({ type }: {type: FormType}) => {
                         {isLoading && (<Loader className="animate-spin"/>)}
                     </Button>
                     <div className="flex justify-center">
-                        <p className="text-neutral-600">
+                        <p className="font-helvetica text-neutral-600">
                             {type === "sign-in"
                                 ? "Don't have an account?"
                                 : "Already have an account?"}
                         </p>
                         <Link href={type === "sign-in" ? "/sign-up" : "/sign-in"}
-                              className="ml-1 font-medium text-green">
+                              className="ml-1 font-helvetica font-medium text-green">
                             {type === "sign-in" ? "Sign Up" : "Sign In"}
                         </Link>
                     </div>

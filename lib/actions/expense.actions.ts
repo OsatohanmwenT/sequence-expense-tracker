@@ -17,7 +17,7 @@ interface FetchExpenseType {
     keyword?: string,
 }
 
-const fetchExpense = async ({limit, offset}: FetchExpenseType)=> {
+export const fetchExpense = async ({limit, offset}: FetchExpenseType)=> {
     const fullUrl = limit ? `${url}?limit=${limit}` : `${url}/expenses`;
     try {
         const response = await fetch(fullUrl, {
