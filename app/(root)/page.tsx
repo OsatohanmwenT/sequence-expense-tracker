@@ -1,12 +1,13 @@
 import React from "react";
-import {Plus, ArrowUp, ArrowLeftRight} from "lucide-react";
+import {Plus, Activity} from "lucide-react";
 import {fetchSummary} from "@/lib/actions/analytics.actions";
 import {getSession} from "@/lib/auth/session";
-import {formatNumber} from "@/lib/utils/utils";
-import {BarChartComponent as BarChart} from "@/components/charts/BarChart";
+import {formatNumber} from "@/lib/utils";
 import NavBar from "@/components/NavBar";
 import ChartSection from "@/components/ChartSection";
 import AnalyticsCard from "@/components/AnalyticsCard";
+import ExpenseOverview from "@/components/ExpenseOverview";
+import CategoryBudgetList from "@/components/CategoryBudgetList";
 
 const Page = async () => {
     const user = await getSession();
@@ -36,7 +37,7 @@ const Page = async () => {
                 <div>
                     <p className="text-white font-work-sans text-sm mb-1">Total Amount Remaining</p>
                     <p className="text-4xl font-work-sans font-semibold text-white">
-                        £ {formatNumber(amountRemaining)}{" "}
+                        € {formatNumber(amountRemaining)}{" "}
                         <span className="text-xs text-light-green">
                             +{formatNumber(percentageRemaining)}%
                         </span>
@@ -55,8 +56,10 @@ const Page = async () => {
                 <AnalyticsCard title="Days Spent within Budget" amount={20000} />
                 <AnalyticsCard title="Highest Category Spending" amount={3000} />
             </section>
-            <section></section>
-
+            <section className="grid grid-cols-1 xl:grid-cols-3 px-4 gap-2 mb-4">
+                <ExpenseOverview/>
+                <CategoryBudgetList />
+            </section>
         </>
     );
 };

@@ -1,10 +1,10 @@
 export interface Expense {
     amount: string;
     name: string;
-    id?: number;
+    id: number;
     category_name: string;
     date: string;
-    category_id?:  number;
+    category_id:  number;
 }
 
 export interface Category {

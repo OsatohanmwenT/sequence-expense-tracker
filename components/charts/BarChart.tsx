@@ -17,7 +17,7 @@ import {
     ChartTooltip,
     ChartTooltipContent,
 } from "@/components/ui/chart";
-import { fillData, generateColor } from "@/lib/utils/utils";
+import { fillData, generateColor } from "@/lib/utils";
 
 const data = [
     { month: "Jan", totalSpent: 18700 },
@@ -64,7 +64,7 @@ export function BarChartComponent() {
                         <Bar
                             dataKey="totalSpent"
                             fillOpacity={0.8}
-                            radius={8}
+                            radius={4}
                             strokeWidth={2}
                         >
                             {chartData.map((entry) => (

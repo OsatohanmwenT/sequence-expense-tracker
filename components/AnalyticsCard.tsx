@@ -1,5 +1,5 @@
 import React from 'react'
-import {formatNumber} from "@/lib/utils/utils";
+import {formatNumber} from "@/lib/utils";
 import {Banknote, PiggyBank} from "lucide-react";
 
 interface AnalyticsCardProps {
@@ -20,7 +20,7 @@ const AnalyticsCard = ({title, amount,extra}: AnalyticsCardProps) => {
                 <p className="text-green-100">Last 30 days</p>
             </div>
             <div>
-                <p className="text-3xl font-work-sans font-semibold">£ {formatNumber(amount)}</p>
+                <p className="text-3xl font-work-sans font-semibold">€ {formatNumber(amount)}</p>
             </div>
                 <p className="text-neutral-500 mt-2 text-sm">{(extra) ||"vs Last Period"}</p>
         </div>

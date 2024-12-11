@@ -23,7 +23,7 @@ export const loginUser = async (formData: { password: string; email: string }) =
 
         await setCookie('access_token', access_token, {
             httpOnly: true,
-            maxAge: 30,
+            maxAge: 60 * 30,
             path: '/',
             sameSite: 'Strict',
         });
