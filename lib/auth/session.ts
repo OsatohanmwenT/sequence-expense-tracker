@@ -1,59 +1,54 @@
+"use server"
+
 import {cookies} from "next/headers";
-import {deleteCookie, setCookie} from "@/lib/utils/cookies";
 
 const isTokenExpired = (token: string): boolean => {
-    const { exp } = JSON.parse(Buffer.from(token.split(".")[1], "base64").toString()) as { exp: number };
-    return Date.now() >= exp * 1000;
-};
+    try {
+        const payload = JSON.parse(Buffer.from(token.split(".")[1], "base64").toString());
+        return Date.now() >= payload.exp * 1000;
+    } catch {
+        return true;
+    }
+}
 
 export const getSession = async () => {
     const cookieStore = await cookies();
     let access_token = cookieStore.get('access_token')?.value;
+    const refresh_token = cookieStore.get('refresh_token')?.value;
     const userData = cookieStore.get('user_data')?.value;
 
     if (!access_token || isTokenExpired(access_token)) {
-        console.log("Access token missing or expired, attempting to refresh...");
-        access_token = await refreshAccessToken();
-    }
 
-    if (!access_token) {
-        console.error("Session is invalid. Redirecting to sign-in.");
-        return null;
+        if (!refresh_token) {
+            return null
+        }
+        access_token = await refreshAccessToken(refresh_token);
+        if (!access_token) {
+            console.error("Failed to refresh access token. Redirecting to sign-in.");
+        }
     }
 
     return { access_token, userData };
 };
 
-export const refreshAccessToken = async () => {
-    const cookieStore = await cookies();
-    const refreshToken = cookieStore.get("refresh_token")?.value;
 
+export const refreshAccessToken = async (refreshToken: string) => {
     try {
         const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/auth/user/refresh-token`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ refreshToken }),
+            body: JSON.stringify({ refresh_token: refreshToken }),
         });
 
         if (!response.ok) {
-            const error = await response.json();
-            console.error("Failed to refresh token:", error.detail || response.statusText);
+            console.error("Failed to refresh token");
             return null;
         }
 
         const { access_token } = await response.json();
-
-        await setCookie("access_token", access_token, {
-            httpOnly: true,
-            maxAge: 60 * 60 * 24 * 30, // 30 days
-            path: "/",
-            sameSite: "Strict",
-        });
-
-        console.log("Access token refreshed successfully:", access_token);
         return access_token;
-    } catch (error: any) {
-        console.error("Error refreshing token:", error.message);
+    } catch (error) {
+        console.error("Error refreshing token:", error);
         return null;
     }
 };
