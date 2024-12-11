@@ -1,4 +1,4 @@
-import { Home, Badge, Settings, ChartArea, Group } from "lucide-react"
+import {Home, Badge, Settings, ChartArea, Group} from "lucide-react"
 
 import {
     Sidebar,
@@ -11,7 +11,9 @@ import {
     SidebarMenuItem, SidebarRail,
 } from "@/components/ui/sidebar"
 import Link from "next/link";
+import {getSession} from "@/lib/auth/session";
 import {logoutUser} from "@/lib/auth/actions";
+import {Avatar, AvatarFallback, AvatarImage} from "@/components/ui/avatar";
 
 // Menu items.
 const items = [
@@ -42,12 +44,14 @@ const items = [
     },
 ]
 
-export function AppSidebar() {
+export async function AppSidebar() {
+    const user = await getSession();
+
     return (
         <Sidebar>
             <SidebarContent>
                 <SidebarGroup>
-                    <div className="flex items-center pt-2 mb-2 pb-4 border-b-[1px] justify-between">
+                    <div className="flex items-center font-inter pt-2 mb-2 pb-4 border-b-[1px] justify-between">
                         <Link href="/">
                             <SidebarGroupLabel className="text-green text-2xl font-medium">Sequence</SidebarGroupLabel>
                         </Link>
@@ -69,8 +73,12 @@ export function AppSidebar() {
                 </SidebarGroup>
             </SidebarContent>
             <SidebarFooter>
-                <button onClick={logoutUser} className="px-10 mx-2 mb-2 rounded-xl shadow-2xl hover:shadow-light-green-400/10 transition-all border-2 py-3">
-                    <p>User Profile</p>
+                <button onClick={logoutUser} className="user-btn">
+                    <Avatar className="text-black size-10">
+                        <AvatarImage src="https://github.com/shadcn.png" />
+                        <AvatarFallback>CN</AvatarFallback>
+                    </Avatar>
+                    <span className="font-semibold">{user?.userData}</span>
                 </button>
             </SidebarFooter>
             <SidebarRail />

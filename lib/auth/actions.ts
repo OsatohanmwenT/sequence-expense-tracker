@@ -1,6 +1,6 @@
 "use server"
-import { cookies } from 'next/headers';
 import {redirect} from "next/navigation";
+import {deleteCookie, setCookie} from "@/lib/utils/cookies";
 
 const apiUrl = process.env.NEXT_PUBLIC_API_URL;
 
@@ -19,22 +19,25 @@ export const loginUser = async (formData: { password: string; email: string }) =
             throw new Error(error.detail || 'Registration failed');
         }
 
-        const { access_token, username } = await response.json();
+        const { access_token, refresh_token, username } = await response.json();
 
-        const cookieStore = await cookies();
-
-        // @ts-ignore
-        cookieStore.set('access_token', access_token, {
+        await setCookie('access_token', access_token, {
             httpOnly: true,
-            maxAge: 60 * 60 * 24 * 14,
+            maxAge: 30,
             path: '/',
             sameSite: 'Strict',
         });
 
-        // @ts-ignore
-        cookieStore.set('user_data', username, {
+        await setCookie("refresh_token", refresh_token, {
+            httpOnly: true,
+            maxAge: 60 * 60 * 24 * 30,
+            path: "/",
+            sameSite: "Strict",
+        });
+
+        await setCookie('user_data', username, {
             httpOnly: false,
-            maxAge: 60 * 60 * 24 * 14,
+            maxAge: 60 * 60 * 24 * 30,
             path: '/',
             sameSite: 'Strict',
         });
@@ -65,23 +68,9 @@ export const registerUser = async (formData: { email: string; username?: string;
     }
 };
 
-// Make logoutUser async to delete the cookies
 export const logoutUser = async () => {
-    const cookieStore = await cookies();
-
-    // Remove cookies by setting them with an expired date
-    cookieStore.delete("access_token");
-    cookieStore.delete("user_data");
+    await deleteCookie("access_token");
+    await deleteCookie("refresh_token");
+    await deleteCookie("user_data");
     redirect("/sign-in");
-};
-
-// Make getSession async as it returns a promise for cookie retrieval
-export const getSession = async () => {
-    const cookieStore = await cookies();
-    const access_token = cookieStore.get('access_token');
-    const userData = cookieStore.get('user_data');
-
-    if (!access_token || !userData) return null;
-
-    return { access_token, userData};
 };

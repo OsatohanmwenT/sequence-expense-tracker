@@ -1,6 +1,6 @@
 import React from 'react'
-import {getSession} from "@/lib/auth/actions";
 import {redirect} from "next/navigation";
+import {getSession} from "@/lib/auth/session";
 
 const Layout = async ({ children }: {children: React.ReactNode}) => {
     const access_token = await getSession()

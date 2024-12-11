@@ -33,6 +33,7 @@ export const createExpense = async (category: Category): Promise<void> => {
             },
             body: JSON.stringify(category)
         });
+        return await response.json();
     } catch (error) {
         console.error(error);
     }
