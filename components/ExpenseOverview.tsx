@@ -1,47 +1,47 @@
 "use client"
 
-import React, {useEffect, useState} from 'react'
+import React, {useState} from 'react'
 import {Activity} from "lucide-react";
-import SortSelect from "@/components/SortSelect";
+import SortSelect from "@/components/forms/SortSelect";
 import ExpenseList from "@/components/ExpenseList";
 import TableSkeleton from "@/components/skeletons/TableSkeleton";
-import {Expense} from "@/lib/entities";
-import {deleteExpense, fetchExpense} from "@/lib/actions/expense.actions";
+import {deleteExpense} from "@/lib/actions/expense.actions";
+import {showToast} from "@/lib/utils/toast";
+import {useQueryClient} from "@tanstack/react-query";
+import {useExpenses} from "@/lib/queries/expenseQueries";
 
 const ExpenseOverview = () => {
-    const [isLoading, setIsLoading] = useState(true)
-    const [expenses, setExpenses] = useState<Expense[] | undefined>([])
-    const [error, setError] = useState<string | null>(null);
+    const queryClient = useQueryClient();
     const [filterBy, setFilterBy] = useState<string | null>(null);
-
-    useEffect(() => {
-        const fetchData = async () => {
-            setIsLoading(true)
-            setError(null)
-            try {
-                const data = await fetchExpense({ limit: 5 })
-                console.log(data)
-                setExpenses(data)
-            } catch (error: any) {
-                setError(error.detail)
-                console.error(error)
-            } finally {
-                setIsLoading(false)
-            }
-        }
-        fetchData()
-    }, [])
+    const { data: expenses, isLoading } = useExpenses({ category_name: filterBy || undefined, limit: 10 })
 
     const handleDeleteExpense = async (id: number | undefined) => {
         if (!id) return
         try {
             const response = await deleteExpense(id);
-            if(response) {
-                setExpenses(prevExpenses => prevExpenses?.filter(expense => expense.id !== id));
+            if (!response) {
+                showToast({
+                    title: "Error!",
+                    description: "Failed to delete the expense. Please try again.",
+                    type: "error",
+                });
+                return;
             }
+            queryClient.invalidateQueries({ queryKey: ["expenses"] });
+            queryClient.invalidateQueries({ queryKey: ["summary"] });
+
+            showToast({
+                title: "Success!",
+                description: "Expense deleted successfully.",
+                type: "success",
+            });
         } catch (error) {
-            setError("Failed to delete the expense. Please try again.");
             console.error(error);
+            showToast({
+                title: "Error!",
+                description: "An unexpected error occurred.",
+                type: "error",
+            });
         }
     }
 

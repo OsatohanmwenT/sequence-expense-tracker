@@ -5,26 +5,36 @@ import {getSession} from "@/lib/auth/session";
 
 const url = process.env.NEXT_PUBLIC_API_URL
 
-interface FetchExpenseType {
+export interface FetchExpenseType {
     limit?: number,
     offset?: number,
     start_date?: string,
     end_date?: string,
     name?: string,
-    category_id?: string,
+    category_name?: string,
     keyword?: string,
 }
 
-export const fetchExpense = async ({limit, offset}: FetchExpenseType) => {
+export const fetchExpense = async (filters: FetchExpenseType) => {
     const access_token = await getSession()
-    const fullUrl = limit ? `${url}/expenses/?limit=${limit}` : `${url}/expenses/`;
+    const queryParams = new URLSearchParams(
+        Object.entries(filters).reduce((acc, [key, value]) => {
+            if (value !== undefined && value !== null && value !== "") {
+                acc[key] = String(value); // Add valid filters to query string
+            }
+            return acc;
+        }, {} as Record<string, string>)
+    );
+
+    const fullUrl = `${url}/expenses/?${queryParams.toString()}`;
+
     try {
         const response = await fetch(fullUrl, {
             method: "GET",
             headers: {
                 Accept: "application/json",
                 Authorization: `Bearer ${access_token?.access_token}`
-            },
+            }
         });
 
         if (!response.ok) {
@@ -32,7 +42,8 @@ export const fetchExpense = async ({limit, offset}: FetchExpenseType) => {
             throw new Error(error.detail || 'Fetch failed');
         }
 
-        return await response.json() as Expense[];
+        const data = await response.json();
+        return data as Expense[];
     }
     catch (error: any) {
         console.error(error.detail || 'Fetch failed');
@@ -41,17 +52,27 @@ export const fetchExpense = async ({limit, offset}: FetchExpenseType) => {
 
 export const createExpense = async (expense: Expense): Promise<void> => {
     const access_token = await getSession()
+
     try {
-        const response = await fetch(`${url}/expenses`, {
+        const response = await fetch(`${url}/expenses/`, {
             method: "POST",
             headers: {
                 Accept: "application/json",
-                Authorization: `Bearer ${access_token}`
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${access_token?.access_token}`,
             },
             body: JSON.stringify(expense)
         });
-    } catch (error) {
-        console.error(error);
+
+        if (!response.ok) {
+            const errorData = await response.json();
+            const errorMessage = errorData?.detail || `Error ${response.status}: ${response.statusText}`;
+            throw new Error(errorMessage);
+        }
+
+        return await response.json()
+    } catch (error: any) {
+        throw new Error(error.message || "Failed to create expense.");
     }
 }
 

@@ -2,7 +2,7 @@
 
 import React from 'react'
 import {SidebarTrigger} from "@/components/ui/sidebar";
-import SearchInput from "@/components/SearchInput";
+import SearchInput from "@/components/forms/SearchInput";
 import CalendarRange from "@/components/CalendarRange";
 import {Download} from "lucide-react";
 

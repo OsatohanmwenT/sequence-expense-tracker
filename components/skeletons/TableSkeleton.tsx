@@ -7,10 +7,10 @@ export default function TableSkeleton() {
             <TableHeader>
                 <TableRow>
                     <TableHead className="w-[100px]">Amount</TableHead>
-                    <TableHead>Category</TableHead>
+                    <TableHead className="max-sm:hidden">Category</TableHead>
                     <TableHead>Description</TableHead>
-                    <TableHead>Date Added</TableHead>
-                    <TableHead className="text-right">Actions</TableHead>
+                    <TableHead className="max-sm:hidden">Date Added</TableHead>
+                    <TableHead className="text-right"></TableHead>
                 </TableRow>
             </TableHeader>
             <TableBody>
@@ -19,7 +19,7 @@ export default function TableSkeleton() {
                         <TableCell>
                             <Skeleton className="h-4 w-20" />
                         </TableCell>
-                        <TableCell>
+                        <TableCell className="max-sm:hidden">
                             <div className="flex items-center">
                                 <Skeleton className="h-4 w-4 mr-2 rounded-full" />
                                 <Skeleton className="h-4 w-20" />
@@ -28,10 +28,10 @@ export default function TableSkeleton() {
                         <TableCell>
                             <Skeleton className="h-4 w-40" />
                         </TableCell>
-                        <TableCell>
+                        <TableCell className="max-sm:hidden">
                             <Skeleton className="h-4 w-24" />
                         </TableCell>
-                        <TableCell className="text-right">
+                        <TableCell className="text-right max-sm:hidden">
                             <Skeleton className="h-8 w-8 rounded-full ml-auto" />
                         </TableCell>
                     </TableRow>

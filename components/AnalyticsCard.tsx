@@ -15,14 +15,14 @@ const AnalyticsCard = ({title, amount,extra}: AnalyticsCardProps) => {
                 <div className="flex items-center gap-2">
                     {title === "Highest Category Spending" && <Banknote className="size-5 text-light-green rotate-45" />}
                     {title === "Days Spent within Budget" && <PiggyBank className="size-5 text-light-green" />}
-                    <p>{title}</p>
+                    <p className="max-sm:text-xs">{title}</p>
                 </div>
-                <p className="text-green-100">Last 30 days</p>
+                <p className="max-sm:text-xs  text-green-100">Last 30 days</p>
             </div>
             <div>
-                <p className="text-3xl font-work-sans font-semibold">€ {formatNumber(amount)}</p>
+                <p className="text-xl sm:text-3xl font-work-sans font-semibold">€ {formatNumber(amount)}</p>
             </div>
-                <p className="text-neutral-500 mt-2 text-sm">{(extra) ||"vs Last Period"}</p>
+                <p className="text-neutral-500 mt-2 text-sm max-sm:text-xs">{(extra) ||"vs Last Period"}</p>
         </div>
     )
 }

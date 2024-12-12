@@ -14,9 +14,7 @@ import {
     PopoverTrigger,
 } from "@/components/ui/popover"
 
-function CalendarRange({
-                                        className,
-                                    }: React.HTMLAttributes<HTMLDivElement>) {
+const CalendarRange = ({className}: React.HTMLAttributes<HTMLDivElement>) => {
     const [date, setDate] = React.useState<DateRange | undefined>({
         from: new Date(),
         to: addDays(new Date(), 30),

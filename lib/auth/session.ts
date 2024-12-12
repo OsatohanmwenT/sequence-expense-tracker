@@ -26,7 +26,6 @@ export const getSession = async () => {
         if (!access_token) {
             console.error("Failed to refresh access token. Redirecting to sign-in.");
         }
-        console.log(access_token);
     }
 
     return { access_token, userData };

@@ -1,5 +1,5 @@
 import {z} from "zod";
-import {FormType} from "@/components/AuthForm";
+import {FormType} from "@/components/forms/AuthForm";
 
 export const authFormSchema = (formType: FormType) => {
     return z.object({

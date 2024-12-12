@@ -6,7 +6,7 @@ import { BarChartComponent as BarChart } from "@/components/charts/BarChart";
 import { formatNumber } from "@/lib/utils";
 import {BudgetSummary} from "@/lib/entities";
 
-const ChartSection = ({ summary }: { summary: BudgetSummary | null }) => {
+const ChartSection = ({ summary }: { summary: BudgetSummary | undefined | null }) => {
     const [view, setView] = useState("monthly");
 
     const percentageRemaining =
@@ -66,7 +66,7 @@ const ChartSection = ({ summary }: { summary: BudgetSummary | null }) => {
                         <div className="chart-card_info">
                             <p>€ {formatNumber(summary?.total_expenses)}</p>
                             <div className="flex text-red-500 items-center">
-                                <span className="text-xs font-inter">-{formatNumber(percentageRemaining)}%</span>
+                                <span className="text-xs font-inter">-{formatNumber(100 - percentageRemaining)}%</span>
                                 <ArrowUp className="size-4 rotate-[135deg]" />
                             </div>
                         </div>

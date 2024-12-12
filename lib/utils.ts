@@ -6,8 +6,8 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
 }
 
-export const formatNumber = (num: number | undefined): string => {
-  if(num === undefined) return ""
+export const formatNumber = (num: number | undefined)=> {
+  if(num === undefined) return "0.00"
   return (num).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,')
 }
 

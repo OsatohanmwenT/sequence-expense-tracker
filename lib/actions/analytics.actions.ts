@@ -13,7 +13,7 @@ export const fetchSummary = async (): Promise<BudgetSummary | null> => {
             headers: {
                 "Content-Type": "application/json",
                 Authorization: `Bearer ${token}`,
-            },
+            }
         });
 
         if (!response.ok) {

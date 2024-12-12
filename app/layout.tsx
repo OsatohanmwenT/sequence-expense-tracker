@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import React from "react";
 import localFont from "next/font/local";
 import "./globals.css";
+import Providers from "@/app/providers";
 
 const workSans = localFont({
   src: [
@@ -170,7 +171,7 @@ export default function RootLayout({
       <body
         className={`${helvetica.variable} ${workSans.variable} ${inter.variable}`}
       >
-        {children}
+        <Providers>{children}</Providers>
       </body>
     </html>
   );
