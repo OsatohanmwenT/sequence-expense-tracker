@@ -21,8 +21,8 @@ export const fetchCategory = async ()=> {
             console.log(error.statusText, error.status);
             throw new Error(error.detail || 'Fetch failed');
         }
-
-        return await response.json() as Category[];
+        const responseData = await response.json();
+        return responseData as Category[];
     }
     catch (error: any) {
         console.log(error.statusText, error.status);
@@ -30,14 +30,15 @@ export const fetchCategory = async ()=> {
     }
 }
 
-export const createExpense = async (category: Category): Promise<void> => {
+export const create = async (category: Category): Promise<void> => {
     const access_token = await getSession()
     try {
-        const response = await fetch(`${url}/categories`, {
+        const response = await fetch(`${url}/categories/`, {
             method: "POST",
             headers: {
                 Accept: "application/json",
-                Authorization: `Bearer ${{ access_token }}`
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${access_token?.access_token}`
             },
             body: JSON.stringify(category)
         });

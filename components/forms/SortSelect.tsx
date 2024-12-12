@@ -8,14 +8,14 @@ import {
     SelectTrigger,
     SelectValue,
 } from "@/components/ui/select"
-import useCategories from "@/app/hooks/useCategories";
+import {useCategories} from "@/lib/queries/categoryQueries";
 
 interface Props {
     setFilterBy: (filterName: string) => void;
 }
 
 export default function SortSelect({ setFilterBy }: Props) {
-    const categories = useCategories();
+    const { data: categories } = useCategories();
 
     const handleValueChange = (value: string) => {
         setFilterBy(value === "all" ? "" : value)

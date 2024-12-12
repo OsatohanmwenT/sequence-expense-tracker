@@ -12,3 +12,10 @@ export const expenseSchema = z.object({
 
 export type ExpenseFormValues = z.infer<typeof expenseSchema>
 
+
+export const categorySchema = z.object({
+    name: z.string().min(1, "Category name is required"),
+    description: z.string().min(1, "Description is required"),
+});
+
+export type CategoryFormValues = z.infer<typeof categorySchema>;

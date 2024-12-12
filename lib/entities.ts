@@ -10,7 +10,7 @@ export interface Expense {
 export interface Category {
     name: string;
     description: string;
-    id: number;
+    id?: number;
 }
 
 export interface AnalyticsExpense {

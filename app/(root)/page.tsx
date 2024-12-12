@@ -14,22 +14,16 @@ import {Skeleton} from "@/components/ui/skeleton";
 const Page = () => {
     const { data: summary, isLoading } = useSummary()
 
-    const amountRemaining =
-        summary?.budget_limit
-            ? (summary.budget_limit - summary.total_expenses)
-            : 0;
+    const budgetLimit = summary?.budget_limit || 0;
+    const totalExpenses = summary?.total_expenses || 0;
+    const amountRemaining = budgetLimit - totalExpenses;
+    const percentageRemaining = budgetLimit ? (amountRemaining / budgetLimit) * 100 : 0;
 
-    const percentageRemaining =
-        summary?.budget_limit
-            ? (((summary.budget_limit - summary.total_expenses) /
-                    summary.budget_limit) *
-                100)
-            : 0;
     return (
         <>
             <section className="px-3">
                 <h1 className="font-semibold font-inter text-xl md:text-3xl mb-2">
-                    Welcome back, <span>{"Guest"}</span>
+                    Welcome back, <span>{<span aria-label="Guest user">Guest</span>}</span>
                 </h1>
             </section>
             <section className="bg-green mt-2 mb-4 flex-between rounded-2xl px-6 py-5 mx-3">
