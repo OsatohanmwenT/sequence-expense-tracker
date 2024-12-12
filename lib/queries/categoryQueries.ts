@@ -2,7 +2,6 @@ import {useMutation, useQuery, useQueryClient} from "@tanstack/react-query";
 import {create, fetchCategory} from "@/lib/actions/category.actions";
 import {Category} from "@/lib/entities";
 import {showToast} from "@/lib/utils/toast";
-import {CategoryFormValues} from "@/lib/schemas";
 
 export const useCategories = () => {
     return useQuery({
@@ -32,7 +31,7 @@ export const usePostCategory = () => {
 
             return { previousCategory };
         },
-        onSuccess: (createdExpense) => {
+        onSuccess: () => {
             queryClient.invalidateQueries({ queryKey: ["categories"] })
 
             // Show success toast
