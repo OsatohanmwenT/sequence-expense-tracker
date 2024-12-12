@@ -10,6 +10,7 @@ import AddButton from "@/components/AddButton";
 import {Toaster} from "@/components/ui/toaster";
 import {useSummary} from "@/lib/queries/analyticsQueries";
 import {Skeleton} from "@/components/ui/skeleton";
+import AnimatedCounter from "@/components/AnimatedCounter";
 
 const Page = () => {
     const { data: summary, isLoading } = useSummary()
@@ -33,7 +34,7 @@ const Page = () => {
                         <Skeleton className="h-6 w-24 bg-gray-400" />
                     ) : (
                         <p className="text-xl sm:text-4xl font-work-sans font-semibold text-white">
-                            € {formatNumber(amountRemaining)}{" "}
+                            € <AnimatedCounter value={amountRemaining} />{" "}
                             <span className="text-xs text-light-green">
                                 +{formatNumber(percentageRemaining)}%
                             </span>

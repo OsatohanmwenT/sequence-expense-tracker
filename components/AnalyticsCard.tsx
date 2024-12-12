@@ -1,6 +1,7 @@
 import React from 'react'
 import {formatNumber} from "@/lib/utils";
 import {Banknote, PiggyBank} from "lucide-react";
+import AnimatedCounter from "@/components/AnimatedCounter";
 
 interface AnalyticsCardProps {
     title: string
@@ -20,7 +21,9 @@ const AnalyticsCard = ({title, amount,extra}: AnalyticsCardProps) => {
                 <p className="max-sm:text-xs  text-green-100">Last 30 days</p>
             </div>
             <div>
-                <p className="text-xl sm:text-3xl font-work-sans font-semibold">€ {formatNumber(amount)}</p>
+                <p className="text-xl sm:text-3xl font-work-sans font-semibold">
+                    € <AnimatedCounter value={amount} />
+                </p>
             </div>
                 <p className="text-neutral-500 mt-2 text-sm max-sm:text-xs">{(extra) ||"vs Last Period"}</p>
         </div>

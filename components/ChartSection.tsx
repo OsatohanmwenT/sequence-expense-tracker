@@ -5,6 +5,7 @@ import { ArrowLeftRight, ArrowUp } from "lucide-react";
 import { BarChartComponent as BarChart } from "@/components/charts/BarChart";
 import { formatNumber } from "@/lib/utils";
 import {BudgetSummary} from "@/lib/entities";
+import AnimatedCounter from "@/components/AnimatedCounter";
 
 const ChartSection = ({ summary }: { summary: BudgetSummary | undefined | null }) => {
     const [view, setView] = useState("monthly");
@@ -49,7 +50,7 @@ const ChartSection = ({ summary }: { summary: BudgetSummary | undefined | null }
                     <div className="flex flex-col gap-3 justify-between">
                         <p className="font-work-sans">Overall Budget</p>
                         <div className="chart-card_info">
-                            <p>€ {formatNumber(summary?.budget_limit)}</p>
+                            <p>€ <AnimatedCounter value={summary?.budget_limit} /></p>
                             <div className="flex text-light-green items-center">
                                 <span className="text-xs font-inter">+{formatNumber(percentageRemaining)}%</span>
                                 <ArrowUp className="size-4 rotate-45" />
@@ -64,7 +65,7 @@ const ChartSection = ({ summary }: { summary: BudgetSummary | undefined | null }
                     <div className="flex flex-col gap-3 justify-between">
                         <p className="font-work-sans">Total Expense</p>
                         <div className="chart-card_info">
-                            <p>€ {formatNumber(summary?.total_expenses)}</p>
+                            <p>€ <AnimatedCounter value={summary?.total_expenses} /></p>
                             <div className="flex text-red-500 items-center">
                                 <span className="text-xs font-inter">-{formatNumber(100 - percentageRemaining)}%</span>
                                 <ArrowUp className="size-4 rotate-[135deg]" />
