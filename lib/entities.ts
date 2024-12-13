@@ -14,12 +14,12 @@ export interface Category {
 }
 
 export interface AnalyticsExpense {
-    date: string;
+    month: string;
     total: string;
 }
 
-export interface AnalyticsDaily {
-    expenses: AnalyticsExpense[];
+export interface AnalyticsTrends {
+    trends: AnalyticsExpense[];
 }
 
 export interface ExpenseCategory {

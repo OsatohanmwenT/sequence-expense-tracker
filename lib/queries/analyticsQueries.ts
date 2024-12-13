@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query'
-import { BudgetSummary, AnalyticsDaily } from "@/lib/entities"
+import {BudgetSummary,AnalyticsTrends} from "@/lib/entities"
 import { getSession } from "@/lib/auth/session"
 
 const url = process.env.NEXT_PUBLIC_API_URL
@@ -29,10 +29,10 @@ export function useSummary() {
     })
 }
 
-export function useDailyExpenses() {
-    return useQuery<AnalyticsDaily, Error>({
-        queryKey: ['dailyExpenses'],
-        queryFn: () => fetchWithAuth('/daily'),
+export function useTrendsData() {
+    return useQuery<AnalyticsTrends, Error>({
+        queryKey: ['trends'],
+        queryFn: () => fetchWithAuth('/analytics/trends'),
     })
 }
 

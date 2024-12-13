@@ -17,39 +17,51 @@ import {
     ChartTooltip,
     ChartTooltipContent,
 } from "@/components/ui/chart";
-import { fillData, generateColor } from "@/lib/utils";
+import {fillData, FillDataType, generateColor, generateWeeklyData} from "@/lib/utils";
+import {ViewType} from "@/components/ChartSection";
 
-const data = [
-    { month: "Jan", totalSpent: 18700 },
-    { month: "Feb", totalSpent: 20000 },
-    { month: "Mar", totalSpent: 27500 },
-    { month: "Apr", totalSpent: 17300 },
-    { month: "May", totalSpent: 9000 },
-];
+interface Props {
+    viewType: ViewType;
+    data: FillDataType[];
+}
 
-const chartData = fillData(data, 12);
+export function BarChartComponent({viewType, data}: Props) {
+    console.log(data)
+    const chartData: FillDataType[] = viewType === 'weekly' ? generateWeeklyData() : fillData(data || [], 12);
+    const dataKey = viewType === 'weekly' ? 'day' : 'month';
 
-const chartConfig = chartData.reduce((config, item, index) => {
-    config[item.month] = {
-        label: item.month,
-        color: generateColor(index),
-    };
-    return config;
-}, {} as Record<string, { label: string; color: string }>);
+    const chartConfig = chartData.reduce<Record<string, { label: string; color: string }>>((config, item, index) => {
+        const key = item[dataKey]; // this will either be 'day' or 'month'
+        if (key) {
+            config[key] = {
+                label: key,
+                color: generateColor(index), // Ensure color is generated correctly based on index
+            };
+        }
+        return config;
+    }, {} as Record<string, { label: string; color: string }>);
 
-export function BarChartComponent() {
+
+
     return (
         <Card className="border-none font-inter shadow-none">
             <CardHeader>
-                <CardTitle>Bar Chart - Monthly Overview</CardTitle>
-                <CardDescription>January - December {format(new Date(), "yyyy")}</CardDescription>
+                <div>
+                    <CardTitle>Bar Chart - {viewType === 'weekly' ? 'Weekly' : 'Monthly'} Overview</CardTitle>
+                    <CardDescription>
+                        {viewType === 'weekly'
+                            ? `Week of ${format(new Date(), "MMMM d, yyyy")}`
+                            : `January - December ${format(new Date(), "yyyy")}`
+                        }
+                    </CardDescription>
+                </div>
             </CardHeader>
             <CardContent className="h-[200px]">
                 <ChartContainer className="h-[200px] w-full" config={chartConfig}>
                     <BarChart data={chartData}>
-                        <CartesianGrid vertical={false} />
+                        <CartesianGrid vertical={false}/>
                         <XAxis
-                            dataKey="month"
+                            dataKey={"month"}
                             tickLine={false}
                             tickMargin={10}
                             axisLine={false}
@@ -68,7 +80,7 @@ export function BarChartComponent() {
                             strokeWidth={2}
                         >
                             {chartData.map((entry) => (
-                                <Cell key={`cell-${entry.month}`} fill={chartConfig[entry.month].color} />
+                                <Cell key={`cell-${entry.month}`} fill={chartConfig[entry[dataKey] as string].color} />
                             ))}
                         </Bar>
                     </BarChart>

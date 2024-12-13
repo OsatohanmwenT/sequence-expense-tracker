@@ -31,7 +31,7 @@ const Page = () => {
                 <div>
                     <p className="text-white font-work-sans text-xs sm:text-sm mb-1">Total Amount Remaining</p>
                     {isLoading ? (
-                        <Skeleton className="h-6 w-24 bg-gray-400" />
+                        <Skeleton className="h-6 w-24 bg-white/40" />
                     ) : (
                         <p className="text-xl sm:text-4xl font-work-sans font-semibold text-white">
                             € <AnimatedCounter value={amountRemaining} />{" "}

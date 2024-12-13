@@ -29,6 +29,7 @@ const ExpenseOverview = () => {
             }
             queryClient.invalidateQueries({ queryKey: ["expenses"] });
             queryClient.invalidateQueries({ queryKey: ["summary"] });
+            queryClient.invalidateQueries({ queryKey: ["trends"] });
 
             showToast({
                 title: "Success!",

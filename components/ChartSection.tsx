@@ -3,12 +3,27 @@
 import React, { useState } from "react";
 import { ArrowLeftRight, ArrowUp } from "lucide-react";
 import { BarChartComponent as BarChart } from "@/components/charts/BarChart";
-import { formatNumber } from "@/lib/utils";
+import {FillDataType, formatNumber} from "@/lib/utils";
 import {BudgetSummary} from "@/lib/entities";
 import AnimatedCounter from "@/components/AnimatedCounter";
+import {useTrendsData} from "@/lib/queries/analyticsQueries";
+import {format} from "date-fns";
+
+export type ViewType = 'weekly' | 'monthly';
 
 const ChartSection = ({ summary }: { summary: BudgetSummary | undefined | null }) => {
-    const [view, setView] = useState("monthly");
+    const [viewType, setViewType] = useState<ViewType>("monthly");
+    const { data: trends } = useTrendsData()
+
+    const rawData: FillDataType[] = trends?.trends.map((item) => {
+        const { total, month, ...rest } = item;
+        const formattedMonth = format(new Date(new Date().getFullYear(),  Number(month) - 1), "MMM");
+        return {
+            ...rest,
+            month: formattedMonth,
+            totalSpent: Number(total),
+        };
+    }) || [];
 
     const percentageRemaining =
         summary?.budget_limit
@@ -26,14 +41,14 @@ const ChartSection = ({ summary }: { summary: BudgetSummary | undefined | null }
                 </div>
                 <div className="flex relative rounded-md bg-gray-200 p-1">
                     <button
-                        onClick={() => setView("weekly")}
-                        className={`font-inter px-3 rounded-md text-sm py-1 ${view === "weekly" ? "bg-white" : ""}`}
+                        onClick={() => setViewType("weekly")}
+                        className={`font-inter px-3 rounded-md text-sm py-1 ${viewType === "weekly" ? "bg-white" : ""}`}
                     >
                         Weekly
                     </button>
                     <button
-                        onClick={() => setView("monthly")}
-                        className={`font-inter px-3 rounded-md text-sm py-1 ${view === "monthly" ? "bg-white" : ""}`}
+                        onClick={() => setViewType("monthly")}
+                        className={`font-inter px-3 rounded-md text-sm py-1 ${viewType === "monthly" ? "bg-white" : ""}`}
                     >
                         Monthly
                     </button>
@@ -41,7 +56,8 @@ const ChartSection = ({ summary }: { summary: BudgetSummary | undefined | null }
             </div>
             <div className="chart-section_grid">
                 <div className="chart">
-                    <BarChart />
+
+                        <BarChart viewType={viewType} data={rawData} />
                 </div>
                 <div className="xl:border-b-2 lg:max-xl:border-r-2 max-lg:border-b-2 max-lg:pb-2 chart-card">
                     <div className="bg-green p-3 rounded-lg flex items-center">

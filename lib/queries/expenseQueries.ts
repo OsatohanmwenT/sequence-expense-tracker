@@ -17,8 +17,6 @@ export const usePostExpense = () => {
     // @ts-ignore
         mutationFn: createExpense,
         onMutate: async (newExpense: Expense) => {
-            await queryClient.cancelQueries({ queryKey: ["expenses"] });
-
             const previousExpenses =
                 queryClient.getQueryData<Expense[]>(["expenses"]) || [];
 
@@ -32,6 +30,7 @@ export const usePostExpense = () => {
         onSuccess: (createdExpense) => {
             queryClient.invalidateQueries({ queryKey: ["expenses"] });
             queryClient.invalidateQueries({ queryKey: ["summary"] });
+            queryClient.invalidateQueries({ queryKey: ["trends"] });
 
             // Show success toast
             showToast({
@@ -53,6 +52,7 @@ export const usePostExpense = () => {
         onSettled: () => {
             queryClient.invalidateQueries({ queryKey: ["expenses"] });
             queryClient.invalidateQueries({ queryKey: ["summary"] });
+            queryClient.invalidateQueries({ queryKey: ["trends"] });
         },
     });
 };
