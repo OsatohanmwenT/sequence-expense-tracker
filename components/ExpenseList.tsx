@@ -32,7 +32,7 @@ export default function ExpenseList({ expenses, handleDeleteExpense }: Props) {
                     </TableRow>
                 </TableHeader>
             </Table>
-            <div className="overflow-y-auto overscroll-y-contain list_scroll">
+            <div className="overflow-y-auto list_scroll">
                 <Table>
                     <TableBody className="font-work-sans">
                         {expenses === undefined &&

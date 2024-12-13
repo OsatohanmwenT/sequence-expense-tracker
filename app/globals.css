@@ -121,7 +121,14 @@
     @apply px-2 mx-2 mb-2 flex items-center text-lg rounded-xl shadow-2xl hover:shadow-light-green-400/10 transition-all border-2 py-3 gap-2;
   }
   /* List */
-  .list_scroll {
-    max-height: calc(5 * 48px);
-  }
+}
+
+.list_scroll {
+  max-height: calc(5 * 48px);
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.list_scroll::-webkit-scrollbar {
+  display: none;
 }

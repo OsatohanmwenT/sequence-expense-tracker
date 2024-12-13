@@ -56,7 +56,6 @@ const ChartSection = ({ summary }: { summary: BudgetSummary | undefined | null }
             </div>
             <div className="chart-section_grid">
                 <div className="chart">
-
                         <BarChart viewType={viewType} data={rawData} />
                 </div>
                 <div className="xl:border-b-2 lg:max-xl:border-r-2 max-lg:border-b-2 max-lg:pb-2 chart-card">

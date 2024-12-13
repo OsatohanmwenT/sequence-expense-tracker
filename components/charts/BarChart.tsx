@@ -26,7 +26,6 @@ interface Props {
 }
 
 export function BarChartComponent({viewType, data}: Props) {
-    console.log(data)
     const chartData: FillDataType[] = viewType === 'weekly' ? generateWeeklyData() : fillData(data || [], 12);
     const dataKey = viewType === 'weekly' ? 'day' : 'month';
 
