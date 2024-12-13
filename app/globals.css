@@ -97,7 +97,7 @@
     @apply flex items-center justify-between;
   }
   .form-button {
-    @apply bg-green text-white rounded-3xl py-7 flex items-center
+    @apply bg-green text-white sm:rounded-3xl py-3 sm:py-7 flex items-center
   }
 
   /*Chart*/

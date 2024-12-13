@@ -18,6 +18,7 @@ import {Loader} from "lucide-react";
 import Link from "next/link";
 import {authFormSchema} from "@/lib/validate";
 import {loginUser, registerUser} from "@/lib/auth/actions";
+import Image from "next/image";
 
 export type FormType = "sign-in" | "sign-up"
 
@@ -55,6 +56,24 @@ const AuthForm = ({ type }: {type: FormType}) => {
             setIsLoading(false)
         }
     }
+
+    const handleGoogleLogin = async () => {
+        try {
+            const response = await fetch("https://expense-tracker-api-production-3dfe.up.railway.app/auth/login/google",{
+                method: "GET",
+            })
+            if(!response.ok) {
+                throw new Error("Could not login with Google");
+            }
+            if (response && response.url) {
+                const url = await response.json();
+                window.location.href = url.url;
+            }
+        } catch (error) {
+            console.error(error)
+        }
+    }
+
     return (
         <>
             <Form {...form}>
@@ -126,7 +145,15 @@ const AuthForm = ({ type }: {type: FormType}) => {
                     </div>
                 </form>
             </Form>
-
+            <div className="flex items-center mt-5 gap-2">
+                <hr className="h-[1px] w-full bg-neutral-300"/>
+                <p className="font-inter text-xs text-green-300 text-nowrap">OR CONTINUE WITH</p>
+                <hr className="h-[1px] w-full bg-neutral-300"/>
+            </div>
+            <button className="border-[1px] flex items-center mt-5 justify-center w-full gap-2 hover:shadow-xl transition-all py-1 rounded-md" onClick={handleGoogleLogin}>
+                <Image src="/google_icon.svg" alt="google icon" width={30} height={30} />
+                <p className="font-medium">GOOGLE</p>
+            </button>
         </>
     )
 }
