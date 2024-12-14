@@ -65,7 +65,7 @@ const Page = () => {
         handleAuth();
     }, [router]);
 
-    return <div className="mx-auto">
+    return <div className="flex w-full items-center justify-center mt-10 mx-auto">
         <LoaderCircle className="size-20 animate-spin" />
     </div>;
 }
