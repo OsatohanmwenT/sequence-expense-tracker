@@ -27,7 +27,8 @@ const ExpenseOverview = () => {
                 });
                 return;
             }
-            queryClient.invalidateQueries({ queryKey: ["expenses"] });
+
+            queryClient.invalidateQueries({ queryKey: [["expenses"]] });
             queryClient.invalidateQueries({ queryKey: ["summary"] });
             queryClient.invalidateQueries({ queryKey: ["trends"] });
 
