@@ -1,5 +1,3 @@
-"use client"
-
 import React from "react";
 import {formatNumber} from "@/lib/utils";
 import ChartSection from "@/components/ChartSection";
@@ -8,12 +6,15 @@ import ExpenseOverview from "@/components/ExpenseOverview";
 import CategoryBudgetList from "@/components/CategoryBudgetList";
 import AddButton from "@/components/AddButton";
 import {Toaster} from "@/components/ui/toaster";
-import {useSummary} from "@/lib/queries/analyticsQueries";
 import {Skeleton} from "@/components/ui/skeleton";
 import AnimatedCounter from "@/components/AnimatedCounter";
+import {fetchSummary} from "@/lib/actions/analytics.actions";
+import {getSession} from "@/lib/auth/session";
 
-const Page = () => {
-    const { data: summary, isLoading } = useSummary()
+const Page = async () => {
+    const user = await getSession()
+    const summary = await fetchSummary();
+    const isLoading = false
 
     const budgetLimit = summary?.budget_limit || 0;
     const totalExpenses = summary?.total_expenses || 0;
@@ -24,7 +25,7 @@ const Page = () => {
         <>
             <section className="px-3">
                 <h1 className="font-semibold font-inter text-xl md:text-3xl mb-2">
-                    Welcome back, <span>{<span aria-label="Guest user">Guest</span>}</span>
+                    Welcome back, <span>{ user?.userData ||<span aria-label="Guest user">Guest</span>}</span>
                 </h1>
             </section>
             <section className="bg-green mt-2 mb-4 flex-between rounded-2xl px-6 py-5 mx-3">

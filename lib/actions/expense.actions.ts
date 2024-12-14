@@ -2,6 +2,7 @@
 
 import {Expense} from "@/lib/entities";
 import {getSession} from "@/lib/auth/session";
+import {revalidatePath} from "next/cache";
 
 const url = process.env.NEXT_PUBLIC_API_URL
 
@@ -70,6 +71,8 @@ export const createExpense = async (expense: Expense): Promise<void> => {
             throw new Error(errorMessage);
         }
 
+        revalidatePath("/");
+
         return await response.json()
     } catch (error: any) {
         throw new Error(error.message || "Failed to create expense.");
@@ -106,6 +109,8 @@ export const deleteExpense = async (expenseId: number) => {
         if (!response.ok) {
             throw new Error(`Failed to delete expense. Status: ${response.status}`);
         }
+
+        revalidatePath("/");
 
         return true;
     } catch (error: any) {

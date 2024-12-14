@@ -1,12 +1,12 @@
-"use client"
-
 import React from 'react'
 import CategoryCardSkeleton from "@/components/skeletons/CategoryCardSkeleton";
 import {useCategoryBudget} from "@/lib/queries/budgetQueries";
 import BudgetCard from "@/components/BudgetCard";
+import {fetchAllBudgets} from "@/lib/actions/budget.actions";
 
-const CategoryOverview = () => {
-    const { data: categories, isLoading } = useCategoryBudget()
+const CategoryOverview = async () => {
+    const categories = await fetchAllBudgets()
+    const isLoading = false
 
     return (
         <section className="mt-10">

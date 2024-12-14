@@ -1,6 +1,6 @@
 "use client"
 
-import * as React from "react";
+import React, {useState} from "react";
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { Button } from "@/components/ui/button"
@@ -13,23 +13,24 @@ import {
     DialogTitle,
 } from "@/components/ui/dialog"
 import {ExpenseFormValues, expenseSchema} from "@/lib/schemas";
-
-import {usePostExpense} from "@/lib/queries/expenseQueries";
 import {CategoryFormField} from "@/components/forms/SelectCategoryField";
 import CalenderFormField from "@/components/forms/CalenderFormField";
 import NumberFormField from "@/components/forms/NumberFormField";
 import TextFormField from "@/components/forms/TextFormField";
 import {useCategories} from "@/lib/queries/categoryQueries";
+import {createExpense} from "@/lib/actions/expense.actions";
+import {showToast} from "@/lib/utils/toast";
+import {useQueryClient} from "@tanstack/react-query";
 
 interface Props {
     open: boolean;
-    setOpen: (open: boolean) => void;
+    setIsOpen: (open: boolean) => void;
 }
 
-export default function ExpenseDialog({ open, setOpen }: Props) {
-    const { mutate: createExpense } = usePostExpense();
-
-    const { data: categories, isLoading } = useCategories();
+export default function ExpenseDialog({ open, setIsOpen }: Props) {
+    const [isLoading, setIsLoading] = useState(false);
+    const queryClient = useQueryClient();
+    const { data: categories, isLoading: categoriesLoading } = useCategories();
     const form = useForm<ExpenseFormValues>({
         resolver: zodResolver(expenseSchema),
         defaultValues: {
@@ -40,15 +41,32 @@ export default function ExpenseDialog({ open, setOpen }: Props) {
         },
     })
 
-    const onSubmit = (data: ExpenseFormValues) => {
-        setOpen(false);
-        createExpense(data, {
-            onSuccess: () => form.reset(),
-        });
+    const onSubmit = async (data: ExpenseFormValues) => {
+        setIsLoading(true);
+        try {
+            await createExpense(data);
+            showToast({
+                title: "Success!",
+                description: "Expense added successfully.",
+                type: "success",
+            });
+            queryClient.invalidateQueries({ queryKey: ["expenses"] });
+            form.reset()
+            setIsOpen(false);
+        } catch (error: any) {
+            console.error(error);
+            showToast({
+                title: "Error!",
+                description: error.message || "Failed to create expense.",
+                type: "error",
+            });
+        } finally {
+            setIsLoading(false);
+        }
     };
 
     return (
-        <Dialog open={open} onOpenChange={setOpen}>
+        <Dialog open={open} onOpenChange={setIsOpen}>
             <DialogContent className="sm:max-w-[425px]">
                 <DialogHeader>
                     <DialogTitle>Add Expense</DialogTitle>
@@ -60,11 +78,11 @@ export default function ExpenseDialog({ open, setOpen }: Props) {
                     <div className="grid gap-4 py-4">
                         <TextFormField label="Name" name="name" form={form} />
                         <NumberFormField label="Amount" name="amount" form={form} />
-                        <CategoryFormField label="Category" form={form} categories={categories} isLoading={isLoading} />
+                        <CategoryFormField label="Category" form={form} categories={categories} isLoading={categoriesLoading} />
                         <CalenderFormField label="Date" name="date" form={form} />
                     </div>
                     <DialogFooter>
-                        <Button type="submit">Save Expense</Button>
+                        <Button type="submit">{isLoading ? "Saving..." : "Save Expense"}</Button>
                     </DialogFooter>
                 </form>
             </DialogContent>

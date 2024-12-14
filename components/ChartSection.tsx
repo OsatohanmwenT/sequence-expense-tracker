@@ -1,20 +1,16 @@
-"use client";
-
-import React, { useState } from "react";
+import React from "react";
 import { ArrowLeftRight, ArrowUp } from "lucide-react";
 import { BarChartComponent as BarChart } from "@/components/charts/BarChart";
 import {FillDataType, formatNumber} from "@/lib/utils";
 import {BudgetSummary} from "@/lib/entities";
 import AnimatedCounter from "@/components/AnimatedCounter";
-import {useTrendsData, useWeeklyData} from "@/lib/queries/analyticsQueries";
 import {format} from "date-fns";
+import {fetchTrends} from "@/lib/actions/analytics.actions";
 
 export type ViewType = 'weekly' | 'monthly';
 
-const ChartSection = ({ summary }: { summary: BudgetSummary | undefined | null }) => {
-    const [viewType, setViewType] = useState<ViewType>("monthly");
-    const { data: trends } = useTrendsData()
-    // const { data: weekly } = useWeeklyData()
+const ChartSection = async ({ summary }: { summary: BudgetSummary | undefined | null }) => {
+    const trends = await fetchTrends()
 
     const rawData: FillDataType[] = trends?.trends.map((item) => {
         const { total, month, ...rest } = item;
@@ -40,25 +36,10 @@ const ChartSection = ({ summary }: { summary: BudgetSummary | undefined | null }
                     <p className="font-helvetica text-green">Cash Flow</p>
                     <ArrowLeftRight className="size-5 text-light-green" />
                 </div>
-                {/*<div className="flex relative rounded-md bg-gray-200 p-1">
-                    <button
-                        onClick={() => setViewType("weekly")}
-                        className={`font-inter px-3 rounded-md text-sm py-1 ${viewType === "weekly" ? "bg-white" : ""}`}
-                    >
-                        Weekly
-                    </button>
-                    <button
-                        onClick={() => setViewType("monthly")}
-                        className={`font-inter px-3 rounded-md text-sm py-1 ${viewType === "monthly" ? "bg-white" : ""}`}
-                    >
-                        Monthly
-                    </button>
-                </div>
-                */}
             </div>
             <div className="chart-section_grid">
                 <div className="chart">
-                        <BarChart viewType={viewType} data={rawData} />
+                        <BarChart data={rawData} />
                 </div>
                 <div className="xl:border-b-2 lg:max-xl:border-r-2 max-lg:border-b-2 max-lg:pb-2 chart-card">
                     <div className="bg-green p-3 rounded-lg flex items-center">

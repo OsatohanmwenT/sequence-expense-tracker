@@ -22,13 +22,12 @@ import {ViewType} from "@/components/ChartSection";
 import {AnalyticsWeekly} from "@/lib/entities";
 
 interface Props {
-    viewType: ViewType;
     data: FillDataType[];
 }
 
-export function BarChartComponent({viewType, data}: Props) {
-    const chartData: FillDataType[] = viewType === 'weekly' ? generateWeeklyData() : fillData(data || [], 12);
-    const dataKey = viewType === 'weekly' ? 'day' : 'month';
+export function BarChartComponent({data}: Props) {
+    const chartData: FillDataType[] = fillData(data || [], 12);
+    const dataKey = 'month';
 
     const chartConfig = chartData.reduce<Record<string, { label: string; color: string }>>((config, item, index) => {
         const key = item[dataKey]; // this will either be 'day' or 'month'
@@ -47,12 +46,9 @@ export function BarChartComponent({viewType, data}: Props) {
         <Card className="border-none font-inter shadow-none">
             <CardHeader>
                 <div>
-                    <CardTitle>Bar Chart - {viewType === 'weekly' ? 'Weekly' : 'Monthly'} Overview</CardTitle>
+                    <CardTitle>Bar Chart - {'Monthly'} Overview</CardTitle>
                     <CardDescription>
-                        {viewType === 'weekly'
-                            ? `Week of ${format(new Date(), "MMMM d, yyyy")}`
-                            : `January - December ${format(new Date(), "yyyy")}`
-                        }
+                        {`January - December ${format(new Date(), "yyyy")}`}
                     </CardDescription>
                 </div>
             </CardHeader>

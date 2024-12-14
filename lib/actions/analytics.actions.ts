@@ -1,4 +1,4 @@
-import {BudgetSummary} from "@/lib/entities";
+import {AnalyticsTrends, BudgetSummary} from "@/lib/entities";
 import {getSession} from "@/lib/auth/session";
 
 const url = process.env.NEXT_PUBLIC_API_URL
@@ -29,17 +29,27 @@ export const fetchSummary = async (): Promise<BudgetSummary | null> => {
     }
 }
 
-export const fetchDailyExpenses = async () => {
+export const fetchTrends = async () => {
         const session = await getSession();
-        const response = await fetch(`${url}/daily`, {
-            method: "GET",
-            headers: {
-                "Content-Type": "application/json",
-                Authorization: `Bearer ${session?.access_token}`,
-            },
-        });
+        try {
+            const response = await fetch(`${url}/analytics/trends`, {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${session?.access_token}`,
+                },
+            });
+            if (!response.ok) {
+                console.error("API Error:", await response.text());
+                throw new Error(`API Error: ${response.status} ${response.statusText}`);
+            }
 
-        return (await response.json());
+            const result = await response.json();
+            return result as AnalyticsTrends;
+        } catch (error) {
+            console.error("Fetch summary failed:", error);
+            return null;
+        }
 };
 
 export const exportExpenses = async () => {
