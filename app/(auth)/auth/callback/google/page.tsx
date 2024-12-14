@@ -9,12 +9,11 @@ const Page = () => {
     const router = useRouter();
     const searchParams = useSearchParams();
     const code = searchParams.get("code");
-    console.log(code);
 
     useEffect(() => {
         const handleAuth = async () => {
             try {
-                const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/auth/callback/google`,{
+                const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/auth/callback/google?code=${code}`,{
                     method: "GET",
                     headers: {
                         Accept: "application/json",
