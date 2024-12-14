@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query'
-import {BudgetSummary,AnalyticsTrends} from "@/lib/entities"
+import {BudgetSummary, AnalyticsTrends, AnalyticsWeekly} from "@/lib/entities"
 import { getSession } from "@/lib/auth/session"
 
 const url = process.env.NEXT_PUBLIC_API_URL
@@ -36,3 +36,9 @@ export function useTrendsData() {
     })
 }
 
+export function useWeeklyData() {
+    return useQuery<AnalyticsWeekly, Error>({
+        queryKey: ['weekly'],
+        queryFn: () => fetchWithAuth('/analytics/weekly'),
+    })
+}

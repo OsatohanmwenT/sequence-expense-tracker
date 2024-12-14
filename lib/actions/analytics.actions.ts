@@ -1,4 +1,4 @@
-import {AnalyticsDaily, BudgetSummary} from "@/lib/entities";
+import {BudgetSummary} from "@/lib/entities";
 import {getSession} from "@/lib/auth/session";
 
 const url = process.env.NEXT_PUBLIC_API_URL
@@ -39,5 +39,31 @@ export const fetchDailyExpenses = async () => {
             },
         });
 
-        return (await response.json()) as AnalyticsDaily;
+        return (await response.json());
+};
+
+export const exportExpenses = async () => {
+    const session = await getSession(); // Fetch session for authentication
+    const token = session?.access_token;
+
+    try {
+        const response = await fetch(`${url}/analytics/export?format=csv`, {
+            method: "GET",
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+        });
+
+        if (!response.ok) {
+            console.error("API Error:", await response.text());
+            throw new Error(`API Error: ${response.status} ${response.statusText}`);
+        }
+
+        // Convert response to a Blob for file download
+        const blob = await response.blob();
+        return blob; // Return file content as a blob
+    } catch (error) {
+        console.error("Fetch summary failed:", error);
+        return null;
+    }
 };

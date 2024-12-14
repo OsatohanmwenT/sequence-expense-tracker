@@ -19,6 +19,7 @@ import {
 } from "@/components/ui/chart";
 import {fillData, FillDataType, generateColor, generateWeeklyData} from "@/lib/utils";
 import {ViewType} from "@/components/ChartSection";
+import {AnalyticsWeekly} from "@/lib/entities";
 
 interface Props {
     viewType: ViewType;

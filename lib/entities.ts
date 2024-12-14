@@ -22,6 +22,11 @@ export interface AnalyticsTrends {
     trends: AnalyticsExpense[];
 }
 
+export interface AnalyticsWeekly {
+    week_start: string
+    breakdown: ExpenseCategory[];
+}
+
 export interface ExpenseCategory {
     category_id: number;
     category_name: string;
@@ -33,4 +38,14 @@ export interface BudgetSummary {
     budget_limit: number;
     adherence: number | null;
     expenses_by_category: ExpenseCategory[];
+}
+
+export interface BudgetCategory {
+    amount_limit: number,
+    start_date: string,
+    end_date: string,
+    status: string,
+    created_at: string,
+    amount_used: number,
+    category_name: string
 }

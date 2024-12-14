@@ -6,6 +6,7 @@ import {showToast} from "@/lib/utils/toast";
 export const useExpenses = (filters: FetchExpenseType) => useQuery({
     queryKey: ["expenses", filters],
     queryFn: () => fetchExpense({ ...filters }),
+    retry: 1
 });
 
 type PostExpenseContext = { previousExpenses: Expense[] };

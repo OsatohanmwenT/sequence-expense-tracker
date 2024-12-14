@@ -44,7 +44,6 @@ export function getWeekDates(): string[] {
 
 export function generateWeeklyData(): FillDataType[] {
   const weekDays = getWeekDates();
-  console.log(weekDays)
   return weekDays.map(day => ({
     day,
     totalSpent: 0

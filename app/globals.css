@@ -121,6 +121,9 @@
     @apply px-2 mx-2 mb-2 flex items-center text-lg rounded-xl shadow-2xl hover:shadow-light-green-400/10 transition-all border-2 py-3 gap-2;
   }
   /* List */
+  .category_container {
+    @apply grid mt-10 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3;
+  }
 }
 
 .list_scroll {
