@@ -1,11 +1,15 @@
 "use client"
 
 import React, {useEffect} from 'react'
-import {notFound, redirect, useRouter} from "next/navigation";
+import {notFound, redirect, useRouter, useSearchParams} from "next/navigation";
 import {setCookie} from "@/lib/utils/cookies";
+import {Loader} from "lucide-react";
 
 const Page = () => {
     const router = useRouter();
+    const searchParams = useSearchParams();
+    const code = searchParams.get("code");
+    console.log(code);
 
     useEffect(() => {
         const handleAuth = async () => {
@@ -55,6 +59,8 @@ const Page = () => {
         handleAuth();
     }, [router]);
 
-    return <div>Authenticating...</div>;
+    return <div className="text-center">
+        <Loader className="size-10 animate-spin" />
+    </div>;
 }
 export default Page
