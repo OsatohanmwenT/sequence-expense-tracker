@@ -14,7 +14,14 @@ const Page = () => {
     useEffect(() => {
         const handleAuth = async () => {
             try {
-                const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/auth/callback/google`);
+                const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/auth/callback/google`,{
+                    method: "GET",
+                    headers: {
+                        Accept: "application/json",
+                        "Content-Type": "application/json",
+                        Authorization: `Bearer ${code}`
+                    }
+                });
 
                 if (!response.ok) {
                     throw new Error("Failed to fetch authentication data");
