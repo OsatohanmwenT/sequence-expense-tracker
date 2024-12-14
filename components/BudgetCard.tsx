@@ -13,7 +13,7 @@ const BudgetCard = ({ category_name, amount_limit, amount_used, start_date, end_
         amount_limit - amount_used : 0
 
     return (
-        <Link className="sm:hover:shadow-xl h-fit transition-all rounded-lg" href={`/budget/category_budget/${category_name}`}>
+        <Link className="sm:hover:shadow-xl max-sm:active:shadow-xl h-fit transition-all rounded-lg" href={`/budget/category_budget/${category_name}`}>
             <div className="border-[1px] font-work-sans py-5 px-3 rounded-lg">
                 <div className="flex-between">
                     <p className="font-semibold font-work-sans text-lg">{category_name}</p>
