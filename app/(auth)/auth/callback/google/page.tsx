@@ -3,7 +3,7 @@
 import React, {useEffect} from 'react'
 import {notFound, redirect, useRouter, useSearchParams} from "next/navigation";
 import {setCookie} from "@/lib/utils/cookies";
-import {Loader} from "lucide-react";
+import {Loader, LoaderCircle} from "lucide-react";
 
 const Page = () => {
     const router = useRouter();
@@ -66,8 +66,8 @@ const Page = () => {
         handleAuth();
     }, [router]);
 
-    return <div className="text-center">
-        <Loader className="size-10 animate-spin" />
+    return <div className="mx-auto">
+        <LoaderCircle className="size-20 animate-spin" />
     </div>;
 }
 export default Page
