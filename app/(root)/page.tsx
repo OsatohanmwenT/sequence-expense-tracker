@@ -57,7 +57,6 @@ const Page = async () => {
                 <ExpenseOverview/>
                 <CategoryBudgetList />
             </section>
-            <Toaster />
         </>
     );
 };

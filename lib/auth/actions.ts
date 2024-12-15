@@ -4,6 +4,12 @@ import {deleteCookie, setCookie} from "@/lib/utils/cookies";
 
 const apiUrl = process.env.NEXT_PUBLIC_API_URL;
 
+const COOKIE_OPTIONS = {
+    httpOnly: true,
+    path: "/",
+    sameSite: "Strict",
+};
+
 export const loginUser = async (formData: { password: string; email: string }) => {
     try {
         const response = await fetch(`${apiUrl}/auth/user/login`, {
@@ -22,23 +28,18 @@ export const loginUser = async (formData: { password: string; email: string }) =
         const { access_token, refresh_token, username } = await response.json();
 
         await setCookie('access_token', access_token, {
-            httpOnly: true,
-            maxAge: 60 * 30,
-            path: '/',
+            ...COOKIE_OPTIONS,
             sameSite: 'Strict',
         });
 
         await setCookie("refresh_token", refresh_token, {
-            httpOnly: true,
-            maxAge: 60 * 60 * 24 * 30,
-            path: "/",
+            ...COOKIE_OPTIONS,
             sameSite: "Strict",
         });
 
         await setCookie('user_data', username, {
+            ...COOKIE_OPTIONS,
             httpOnly: false,
-            maxAge: 60 * 60 * 24 * 30,
-            path: '/',
             sameSite: 'Strict',
         });
     } catch (error: any) {
@@ -62,7 +63,7 @@ export const registerUser = async (formData: { email: string; username?: string;
         }
 
         const { message } = await response.json();
-        return { success: true, message: message };
+        return { success: true, message: message, redirect: "/sign-in" };
     } catch (error: any) {
         return { success: false, message: error.message };
     }

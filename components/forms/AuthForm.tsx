@@ -19,6 +19,8 @@ import Link from "next/link";
 import {authFormSchema} from "@/lib/validate";
 import {loginUser, registerUser} from "@/lib/auth/actions";
 import Image from "next/image";
+import {showToast} from "@/lib/utils/toast";
+import {redirect} from "next/navigation";
 
 export type FormType = "sign-in" | "sign-up"
 
@@ -45,9 +47,22 @@ const AuthForm = ({ type }: {type: FormType}) => {
                 : await loginUser({ email: values.email, password: values.password })
 
             if (!result?.success) {
-                setErrorMessage(result?.message) // Display API error
+                setErrorMessage(result?.message)
+                showToast({
+                    title: "Error!",
+                    description: result?.message,
+                    type: "error",
+                })
             } else {
-                console.log(result.message) // Success message
+                console.log(result.message)
+                showToast({
+                    title: "Success!",
+                    description: result.message,
+                    type: "success",
+                })
+            }
+            if (result?.success && type === "sign-up") {
+                setTimeout(() => redirect("/sign-in"), 2000)
             }
         } catch (error: any) {
             setErrorMessage("An unexpected error occurred. Please try again.")
