@@ -9,7 +9,6 @@ import {deleteExpense} from "@/lib/actions/expense.actions";
 import {showToast} from "@/lib/utils/toast";
 import {useQueryClient} from "@tanstack/react-query";
 import {useExpenses} from "@/lib/queries/expenseQueries";
-import {revalidatePath} from "next/cache";
 
 const ExpenseOverview = () => {
     const queryClient = useQueryClient();
@@ -29,7 +28,7 @@ const ExpenseOverview = () => {
                 return;
             }
 
-            queryClient.invalidateQueries({ queryKey: ["expenses"] });
+            queryClient.resetQueries({ queryKey: ["expenses"] })
 
             showToast({
                 title: "Success!",
