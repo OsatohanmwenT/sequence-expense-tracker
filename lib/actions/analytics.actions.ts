@@ -69,9 +69,7 @@ export const exportExpenses = async () => {
             throw new Error(`API Error: ${response.status} ${response.statusText}`);
         }
 
-        // Convert response to a Blob for file download
-        const blob = await response.blob();
-        return blob; // Return file content as a blob
+        return await response.blob(); // Return file content as a blob
     } catch (error) {
         console.error("Fetch summary failed:", error);
         return null;

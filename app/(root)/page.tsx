@@ -5,7 +5,6 @@ import AnalyticsCard from "@/components/AnalyticsCard";
 import ExpenseOverview from "@/components/ExpenseOverview";
 import CategoryBudgetList from "@/components/CategoryBudgetList";
 import AddButton from "@/components/AddButton";
-import {Toaster} from "@/components/ui/toaster";
 import {Skeleton} from "@/components/ui/skeleton";
 import AnimatedCounter from "@/components/AnimatedCounter";
 import {fetchSummary} from "@/lib/actions/analytics.actions";

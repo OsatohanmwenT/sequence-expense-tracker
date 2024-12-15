@@ -42,6 +42,7 @@ export const loginUser = async (formData: { password: string; email: string }) =
             httpOnly: false,
             sameSite: 'Strict',
         });
+        return { success: true };
     } catch (error: any) {
         return { success: false, message: error.message };
     }

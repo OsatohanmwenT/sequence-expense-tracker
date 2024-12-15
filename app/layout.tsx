@@ -171,8 +171,8 @@ export default function RootLayout({
         className={`${helvetica.variable} ${workSans.variable} ${inter.variable}`}
       >
         <Providers>{children}</Providers>
-        <Toaster />
       </body>
+      <Toaster />
     </html>
   );
 }

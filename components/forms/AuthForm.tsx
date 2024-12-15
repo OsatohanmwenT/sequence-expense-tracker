@@ -53,16 +53,14 @@ const AuthForm = ({ type }: {type: FormType}) => {
                     description: result?.message,
                     type: "error",
                 })
-            } else {
-                console.log(result.message)
+            }
+            if (result?.success && type === "sign-up") {
+                setTimeout(() => redirect("/sign-in"), 2000)
                 showToast({
                     title: "Success!",
                     description: result.message,
                     type: "success",
                 })
-            }
-            if (result?.success && type === "sign-up") {
-                setTimeout(() => redirect("/sign-in"), 2000)
             }
         } catch (error: any) {
             setErrorMessage("An unexpected error occurred. Please try again.")
@@ -144,8 +142,7 @@ const AuthForm = ({ type }: {type: FormType}) => {
                         </div>
                     )}
                     <Button disabled={isLoading} className="form-button" type="submit">
-                        {type === "sign-in" ? "Sign In" : "Sign Up"}
-                        {isLoading && (<Loader className="animate-spin"/>)}
+                        {isLoading ? <Loader className="animate-spin" /> : (type === "sign-in" ? "Sign In" : "Sign Up")}
                     </Button>
                     <div className="flex justify-center">
                         <p className="font-helvetica text-neutral-600">
