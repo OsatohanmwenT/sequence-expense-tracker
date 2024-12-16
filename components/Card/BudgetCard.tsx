@@ -3,16 +3,14 @@ import {BudgetCategory} from "@/lib/entities";
 import {format} from "date-fns";
 import {formatNumber} from "@/lib/utils";
 import StatusTag from "@/components/StatusTag";
-import DeleteDialog from "@/components/dialogs/DeleteDialog";
 
 const BudgetCard = ({ category_name, amount_limit, amount_used, start_date, end_date, status }: BudgetCategory) => {
 
-    const remainingPercentage = amount_limit
+    const remainingPercentage = amount_limit && amount_used
         ? Math.max(0, 100 - ((amount_limit - amount_used) / amount_limit) * 100)
         : 0;
 
-    const remainingAmount = amount_limit && amount_limit - amount_used > 0 ?
-        amount_limit - amount_used : 0
+    const remainingAmount = Math.max(0, (amount_limit || 0) - (amount_used || 0));
 
     return (
     <div className="border-[1px] font-work-sans py-5 px-3 rounded-lg">
@@ -24,12 +22,12 @@ const BudgetCard = ({ category_name, amount_limit, amount_used, start_date, end_
         </div>
         <div className="mt-2">
             <div className="flex-between text-sm text-neutral-400 mb-3">
-                <p>€{amount_used} spent</p>
+                <p>€{amount_used || 0} spent</p>
                 <p>€{remainingAmount} remaining</p>
             </div>
             <div className="w-full overflow-hidden relative h-[6px] bg-light-green-100 rounded-lg">
                 <div style={{width: `${remainingPercentage}%`}}
-                     className="h-full rounded-lg bg-green-200 w-4/6 hover:w-full transition-all duration-500"></div>
+                     className="h-full rounded-lg bg-green-200 transition-all duration-500"></div>
             </div>
             <div className="flex-between text-sm text-neutral-400 mt-5">
                 <p>from {format(start_date || new Date(), "PP")}</p>

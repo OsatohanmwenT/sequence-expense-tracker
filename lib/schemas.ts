@@ -19,3 +19,11 @@ export const categorySchema = z.object({
 });
 
 export type CategoryFormValues = z.infer<typeof categorySchema>;
+
+export const editCategoryBudgetSchema = z.object({
+    amount_limit: z.number().min(1, "Amount is required"),
+    start_date: z.date().transform((date) => format(date, "yyyy-MM-dd")),
+    end_date: z.date().transform((date) => format(date, "yyyy-MM-dd"))
+})
+
+export type CategoryBudgetFormValues = z.infer<typeof editCategoryBudgetSchema>;

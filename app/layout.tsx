@@ -37,16 +37,6 @@ const workSans = localFont({
       weight: "400",
       style: "normal"
     },
-    {
-      path: './fonts/workSans/WorkSans-Thin.ttf',
-      weight: "200",
-      style: "normal"
-    },
-    {
-      path: './fonts/workSans/WorkSans-ExtraLight.ttf',
-      weight: "100",
-      style: "normal"
-    },
   ],
   variable: '--font-work-sans',
 })
@@ -71,12 +61,7 @@ const inter = localFont({
   src: [
     // Regular
     {
-      path: './fonts/Inter_18pt-Regular.ttf',
-      style: 'normal',
-      weight: '400',
-    },
-    {
-      path: './fonts/Inter_24pt-Regular.ttf',
+      path: './fonts/Inter_18pt-Medium.ttf',
       style: 'normal',
       weight: '400',
     },
@@ -86,70 +71,12 @@ const inter = localFont({
       style: 'normal',
       weight: '700',
     },
-    {
-      path: './fonts/Inter_24pt-Bold.ttf',
-      style: 'normal',
-      weight: '700',
-    },
 
     // SemiBold
     {
       path: './fonts/Inter_18pt-SemiBold.ttf',
       style: 'normal',
       weight: '600',
-    },
-    {
-      path: './fonts/Inter_24pt-SemiBold.ttf',
-      style: 'normal',
-      weight: '600',
-    },
-
-    // Light
-    {
-      path: './fonts/Inter_18pt-Light.ttf',
-      style: 'normal',
-      weight: '300',
-    },
-    {
-      path: './fonts/Inter_24pt-Light.ttf',
-      style: 'normal',
-      weight: '300',
-    },
-
-    // ExtraLight
-    {
-      path: './fonts/Inter_18pt-ExtraLight.ttf',
-      style: 'normal',
-      weight: '200',
-    },
-    {
-      path: './fonts/Inter_24pt-ExtraLight.ttf',
-      style: 'normal',
-      weight: '200',
-    },
-
-    // Thin
-    {
-      path: './fonts/Inter_18pt-Thin.ttf',
-      style: 'normal',
-      weight: '100',
-    },
-    {
-      path: './fonts/Inter_24pt-Thin.ttf',
-      style: 'normal',
-      weight: '100',
-    },
-
-    // Black
-    {
-      path: './fonts/Inter_18pt-Black.ttf',
-      style: 'normal',
-      weight: '900',
-    },
-    {
-      path: './fonts/Inter_24pt-Black.ttf',
-      style: 'normal',
-      weight: '900',
     },
   ],
   variable: '--font-inter',

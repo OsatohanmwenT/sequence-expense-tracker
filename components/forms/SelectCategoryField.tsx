@@ -1,6 +1,5 @@
-import {Category} from "@/lib/entities";
+import {Category, FormFieldProps} from "@/lib/entities";
 import { Label } from "@/components/ui/label"
-import {ExpenseFormValues} from "@/lib/schemas";
 import {
     Select,
     SelectContent,
@@ -8,25 +7,19 @@ import {
     SelectTrigger,
     SelectValue,
 } from "@/components/ui/select"
-import {Controller, useForm} from "react-hook-form";
+import {Controller} from "react-hook-form";
 import SelectSkeleton from "@/components/skeletons/SelectSkeleton";
 import AddCategory from "@/components/Buttons/AddCategory";
 
-export interface FormFieldProps {
-    label: string;
-    name: keyof ExpenseFormValues;
-    form: ReturnType<typeof useForm<ExpenseFormValues>>;
-}
-
-interface CategoryFormFieldProps extends Omit<FormFieldProps, 'name'> {
+interface CategoryFormFieldProps<TFormValues> extends Omit<FormFieldProps<TFormValues>, "name">{
     categories: Category[] | undefined;
     isLoading: boolean
 }
 
-export const CategoryFormField: React.FC<CategoryFormFieldProps> = ({ label, form, categories, isLoading }) => {
+export const CategoryFormField = <TFormValues,>({ label, form, categories, isLoading }: CategoryFormFieldProps<TFormValues>) => {
     return (
-        <div className="grid grid-cols-4 items-center gap-4">
-            <Label htmlFor="category" className="text-right">
+        <div className="flex flex-col gap-2">
+            <Label htmlFor="category">
                 {label}
             </Label>
             <Controller

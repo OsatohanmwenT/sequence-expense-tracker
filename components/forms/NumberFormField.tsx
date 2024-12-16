@@ -1,10 +1,10 @@
 import {Label} from "@/components/ui/label";
-import {FormFieldProps} from "@/components/forms/SelectCategoryField";
 import {Input} from "@/components/ui/input";
+import {FormFieldProps} from "@/lib/entities";
 
-const NumberFormField: React.FC<FormFieldProps> = ({ label, name, form }) => (
-    <div className="grid grid-cols-4 items-center gap-4">
-        <Label htmlFor={name} className="text-right">
+const NumberFormField= <TFormValues,> ({ label, name, form }: FormFieldProps<TFormValues>) => (
+    <div className="flex flex-col gap-2">
+        <Label htmlFor={name}>
             {label}
         </Label>
         <div className="col-span-3">

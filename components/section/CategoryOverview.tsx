@@ -7,7 +7,10 @@ import Link from "next/link";
 
 const CategoryOverview = async () => {
     const categories = await fetchAllBudgets()
-    const isLoading = false
+
+    if (!categories) {
+        return <p className="text-red-500 text-3xl">NO BUDGET FOUND</p>
+    }
 
     return (
         <section className="mt-10">

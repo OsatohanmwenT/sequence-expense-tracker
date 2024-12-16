@@ -1,16 +1,16 @@
 import {Label} from "@/components/ui/label";
-import {FormFieldProps} from "@/components/forms/SelectCategoryField";
-import {Controller} from "react-hook-form";
 import {Popover, PopoverContent, PopoverTrigger} from "@/components/ui/popover";
 import {Button} from "@/components/ui/button";
 import {cn} from "@/lib/utils";
 import {CalendarIcon} from "lucide-react";
 import {format, startOfDay} from "date-fns";
 import {Calendar} from "@/components/ui/calendar";
+import {Controller, FieldValues} from "react-hook-form";
+import {FormFieldProps} from "@/lib/entities";
 
-const CalenderFormField: React.FC<FormFieldProps> = ({ label, name, form }) => (
-    <div className="grid grid-cols-4 items-center gap-4">
-        <Label htmlFor={name} className="text-right">
+const CalenderFormField = <TFormValues extends FieldValues,>({ label, name, form }: FormFieldProps<TFormValues>) => (
+    <div className="flex flex-col gap-2">
+        <Label htmlFor={name}>
             {label}
         </Label>
         <Controller
@@ -38,9 +38,8 @@ const CalenderFormField: React.FC<FormFieldProps> = ({ label, name, form }) => (
                                 field.onChange(date ? startOfDay(date) : null);
                             }}
                             disabled={(date) => {
-                                const today = new Date();
                                 const minDate = new Date("1900-01-01");
-                                return date > today || date < minDate;
+                                return date < minDate;
                             }}
                             initialFocus
                         />

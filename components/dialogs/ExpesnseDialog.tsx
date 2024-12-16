@@ -76,10 +76,10 @@ export default function ExpenseDialog({ open, setIsOpen }: Props) {
                 </DialogHeader>
                 <form onSubmit={form.handleSubmit(onSubmit)}>
                     <div className="grid gap-4 py-4">
-                        <TextFormField label="Name" name="name" form={form} />
-                        <NumberFormField label="Amount" name="amount" form={form} />
-                        <CategoryFormField label="Category" form={form} categories={categories} isLoading={categoriesLoading} />
-                        <CalenderFormField label="Date" name="date" form={form} />
+                        <TextFormField<ExpenseFormValues>  label="Name" name="name" form={form} />
+                        <NumberFormField<ExpenseFormValues> label="Amount" name="amount" form={form} />
+                        <CategoryFormField<ExpenseFormValues> label="Category" form={form} categories={categories} isLoading={categoriesLoading} />
+                        <CalenderFormField<ExpenseFormValues> label="Date" name="date" form={form} />
                     </div>
                     <DialogFooter>
                         <Button type="submit">{isLoading ? "Saving..." : "Save Expense"}</Button>

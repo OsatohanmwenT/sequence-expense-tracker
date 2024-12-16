@@ -1,3 +1,6 @@
+import {ExpenseFormValues} from "@/lib/schemas";
+import {FieldValues, useForm, UseFormReturn} from "react-hook-form";
+
 export interface Expense {
     amount: number;
     name: string;
@@ -48,4 +51,10 @@ export interface BudgetCategory {
     created_at: string,
     amount_used: number,
     category_name: string
+}
+
+export interface FormFieldProps<TFormValues extends FieldValues> {
+    label: string;
+    name: keyof TFormValues;
+    form: UseFormReturn<TFormValues>;
 }
