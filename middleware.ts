@@ -13,6 +13,14 @@ const isTokenExpired = (token: string): boolean => {
 export async function middleware(request: NextRequest) {
     const pathname = request.nextUrl.pathname;
 
+    if (
+        pathname.startsWith("/_next") ||
+        pathname.startsWith("/static") ||
+        /\.(.*)$/.test(pathname)
+    ) {
+        return NextResponse.next();
+    }
+
     const publicPaths = ["/sign-in"];
     if (publicPaths.some((path) => pathname.startsWith(path))) {
         return NextResponse.next();

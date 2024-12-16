@@ -174,5 +174,5 @@ export default function RootLayout({
       </body>
       <Toaster />
     </html>
-  );
+  )
 }
