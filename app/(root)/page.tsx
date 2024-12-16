@@ -48,9 +48,9 @@ const Page = async () => {
             </section>
             <ChartSection summary={summary} />
             <section className="px-4 my-3 grid lg:grid-cols-2 xl:grid-cols-3 gap-5">
-                <AnalyticsCard title="Highest Category Spending" amount={15000} extra="You spent most of your money this month on Food" />
-                <AnalyticsCard title="Days Spent within Budget" amount={20000} />
-                <AnalyticsCard title="Highest Category Spending" amount={3000} />
+                <AnalyticsCard title="Highest Category Spending" amount={0} extra="You spent most of your money this month on Food" />
+                <AnalyticsCard title="Days Spent within Budget" amount={0} />
+                <AnalyticsCard title="Highest Category Spending" amount={0} />
             </section>
             <section className="grid grid-cols-1 xl:grid-cols-3 px-4 gap-2 mb-4">
                 <ExpenseOverview/>
