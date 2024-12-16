@@ -51,7 +51,7 @@ export const fetchExpense = async (filters: FetchExpenseType) => {
     }
 }
 
-export const createExpense = async (expense: Expense): Promise<void> => {
+export const createExpense = async (expense: Expense) => {
     const access_token = await getSession()
 
     try {
@@ -79,19 +79,29 @@ export const createExpense = async (expense: Expense): Promise<void> => {
     }
 }
 
-export const updateExpense = async ({expenseId, payload}: {expenseId: number, payload: Expense}): Promise<void> => {
+export const updateExpense = async (expenseId: number | undefined, expense: Expense, path: string) => {
     const access_token = await getSession()
     try {
         const response = await fetch(`${url}/expenses/${expenseId}`, {
-            method: "PATCH",
+            method: "PUT",
             headers: {
                 Accept: "application/json",
-                Authorization: `Bearer ${access_token}`
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${access_token?.access_token}`
             },
-            body: JSON.stringify(payload),
+            body: JSON.stringify(expense),
         })
-    } catch (error) {
-        console.error(error);
+
+        if (!response.ok) {
+            const errorData = await response.json();
+            const errorMessage = errorData?.detail || `Error ${response.status}: ${response.statusText}`;
+            throw new Error(errorMessage);
+        }
+
+        revalidatePath(path);
+        return await response.json()
+    } catch (error: any) {
+        throw new Error(error.message || "Failed to create expense.");
     }
 }
 

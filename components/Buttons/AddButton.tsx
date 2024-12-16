@@ -2,7 +2,7 @@
 
 import React, {useState} from 'react'
 import {Plus} from "lucide-react";
-import ExpenseDialog from "@/components/dialogs/ExpesnseDialog";
+import ExpenseDialog from "@/components/dialogs/ExpenseDialog";
 
 const AddButton = ({type}: { type: "yes" | "no" }) => {
     const [isOpen, setIsOpen] = useState(false)
@@ -20,7 +20,7 @@ const AddButton = ({type}: { type: "yes" | "no" }) => {
                 <button onClick={() => setIsOpen(true)} className="text-base mx-auto">Add a new expense</button>
                 )
             }
-            <ExpenseDialog open={isOpen} setIsOpen={setIsOpen}/>
+            <ExpenseDialog open={isOpen} setIsOpen={setIsOpen} type="create"/>
         </>
     )
 }

@@ -17,6 +17,8 @@ import AddButton from "@/components/Buttons/AddButton";
 import {deleteExpense} from "@/lib/actions/expense.actions";
 import {showToast} from "@/lib/utils/toast";
 import {useQueryClient} from "@tanstack/react-query";
+import ExpenseDialog from "@/components/dialogs/ExpenseDialog";
+import {useState} from "react";
 
 interface Props {
     expenses: Expense[] | undefined;
@@ -24,6 +26,9 @@ interface Props {
 
 export default function ExpenseList({ expenses }: Props) {
     const queryClient = useQueryClient();
+    const [isOpen, setIsOpen] = useState(false);
+    const [selectedExpense, setSelectedExpense] = useState<Expense | null>(null);
+
     const handleDeleteExpense = async (id: number | undefined) => {
         if (!id) return
         try {
@@ -37,7 +42,7 @@ export default function ExpenseList({ expenses }: Props) {
                 return;
             }
 
-            queryClient.resetQueries({ queryKey: ["expenses"] })
+            await queryClient.resetQueries({ queryKey: ["expenses"] })
 
             showToast({
                 title: "Success!",
@@ -53,6 +58,12 @@ export default function ExpenseList({ expenses }: Props) {
             });
         }
     }
+
+    const handleEditExpense = (expense: Expense) => {
+        setSelectedExpense(expense);
+        setIsOpen(true);
+    };
+
     return (
         <div className="relative">
             <Table className="border-t-[1px] max-h-[250px] overflow-scroll">
@@ -101,8 +112,7 @@ export default function ExpenseList({ expenses }: Props) {
                                             </DropdownMenuTrigger>
                                             <DropdownMenuContent className="font-work-sans shadow-xl" align="end">
                                                 <DropdownMenuLabel>Actions</DropdownMenuLabel>
-                                                <DropdownMenuItem>View details</DropdownMenuItem>
-                                                <DropdownMenuItem>Edit expense</DropdownMenuItem>
+                                                <DropdownMenuItem onClick={() => handleEditExpense(expense)}>Edit expense</DropdownMenuItem>
                                                 <DropdownMenuSeparator/>
                                                 <DropdownMenuItem className="hover:bg-red-600 hover:text-white"
                                                                   onClick={() => handleDeleteExpense(expense.id)}>Delete
@@ -115,6 +125,7 @@ export default function ExpenseList({ expenses }: Props) {
                     </TableBody>
                 </Table>
             </div>
+            <ExpenseDialog open={isOpen} setIsOpen={setIsOpen} type="update" initialValues={selectedExpense} />
         </div>
 )
 }
