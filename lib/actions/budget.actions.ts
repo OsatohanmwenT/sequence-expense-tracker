@@ -3,6 +3,7 @@
 import {BudgetCategory} from "@/lib/entities";
 import {getSession} from "@/lib/auth/session";
 import {revalidatePath} from "next/cache";
+import {CategoryBudgetFormValues} from "@/lib/schemas";
 
 const url = process.env.NEXT_PUBLIC_API_URL;
 
@@ -78,7 +79,7 @@ export const deactivateBudget = async (category_name: string) => {
     }
 }
 
-export const editBudget = async (category_name: string, path: string, budget: BudgetCategory ) => {
+export const editBudget = async (category_name: string, path: string, budget: CategoryBudgetFormValues) => {
     const session = await getSession();
     try {
         const response = await fetch(`${url}/category_budgets/${category_name}`, {

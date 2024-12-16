@@ -4,12 +4,12 @@ import {FormFieldProps} from "@/lib/entities";
 
 const NumberFormField= <TFormValues,> ({ label, name, form }: FormFieldProps<TFormValues>) => (
     <div className="flex flex-col gap-2">
-        <Label htmlFor={name}>
+        <Label htmlFor={name as string}>
             {label}
         </Label>
         <div className="col-span-3">
             <Input
-                id={name}
+                id={name as string}
                 type="number"
                 {...form.register(name, { valueAsNumber: true })}
             />

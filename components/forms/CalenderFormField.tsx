@@ -10,7 +10,7 @@ import {FormFieldProps} from "@/lib/entities";
 
 const CalenderFormField = <TFormValues extends FieldValues,>({ label, name, form }: FormFieldProps<TFormValues>) => (
     <div className="flex flex-col gap-2">
-        <Label htmlFor={name}>
+        <Label htmlFor={name as string}>
             {label}
         </Label>
         <Controller

@@ -7,11 +7,11 @@ import {
     SelectTrigger,
     SelectValue,
 } from "@/components/ui/select"
-import {Controller} from "react-hook-form";
+import {Controller, FieldValues} from "react-hook-form";
 import SelectSkeleton from "@/components/skeletons/SelectSkeleton";
 import AddCategory from "@/components/Buttons/AddCategory";
 
-interface CategoryFormFieldProps<TFormValues> extends Omit<FormFieldProps<TFormValues>, "name">{
+interface CategoryFormFieldProps<TFormValues extends FieldValues> extends Omit<FormFieldProps<TFormValues>, "name">{
     categories: Category[] | undefined;
     isLoading: boolean
 }
