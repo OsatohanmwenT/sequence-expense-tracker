@@ -1,32 +1,52 @@
 "use client"
 
-import React from 'react'
+import React, {useState} from 'react'
 import {useForm} from "react-hook-form";
-import {ExpenseFormValues, expenseSchema} from "@/lib/schemas";
+import {expenseBudgetSchema, expenseBudgetValues, } from "@/lib/schemas";
 import {zodResolver} from "@hookform/resolvers/zod";
 import NumberFormField from "@/components/forms/NumberFormField";
 import CalenderFormField from "@/components/forms/CalenderFormField";
 import TextFormField from "@/components/forms/TextFormField";
 import {Button} from "@/components/ui/button";
+import {createExpense} from "@/lib/actions/expense.actions";
+import {showToast} from "@/lib/utils/toast";
 
-const Form = () => {
-    const form = useForm<ExpenseFormValues>({
-        resolver: zodResolver(expenseSchema),
+const Form = ({id}: {id: string}) => {
+    const [loading, setLoading] = useState(false);
+    const form = useForm<expenseBudgetValues>({
+        resolver: zodResolver(expenseBudgetSchema),
         defaultValues: {
             name: "",
             amount: 0,
-            category_name: "",
             date: "",
         },
     })
 
+    const onSubmit = async (data: expenseBudgetValues) => {
+        setLoading(true);
+        const fullData = {...data, category_name: id}
+        try {
+            await createExpense(fullData)
+            form.reset()
+        } catch (error: any) {
+            console.error(error);
+            showToast({
+                title: "Error!",
+                description: error.message || "Failed to create expense.",
+                type: "error",
+            });
+        } finally {
+            setLoading(false);
+        }
+    }
+
     return (
-        <form className="w-full flex flex-col gap-5">
+        <form onSubmit={form.handleSubmit(onSubmit)} className="w-full flex flex-col gap-5">
             <p className="font-work-sans text-semibold text-lg md:text-2xl">Add Expense</p>
             <TextFormField label="Name" name="name" form={form} />
             <NumberFormField label="Amount" name="amount" form={form}/>
             <CalenderFormField label="Date" name="date" form={form}/>
-            <Button>Add Expense</Button>
+            <Button>{ loading ? "Adding..." : "Add Expense"}</Button>
         </form>
     )
 }

@@ -12,6 +12,15 @@ export const expenseSchema = z.object({
 
 export type ExpenseFormValues = z.infer<typeof expenseSchema>
 
+export const expenseBudgetSchema = z.object({
+    name: z.string().min(1, "Name is required"),
+    amount: z
+        .number({message: "Must be a valid number"})
+        .min(1, "must be greater than 0"),
+    date: z.date().transform((date) => format(date, "yyyy-MM-dd")),
+})
+
+export type expenseBudgetValues = z.infer<typeof expenseBudgetSchema>
 
 export const categorySchema = z.object({
     name: z.string().min(1, "Category name is required"),

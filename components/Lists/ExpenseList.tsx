@@ -14,13 +14,45 @@ import {
 import {Expense} from "@/lib/entities";
 import {formatNumber} from "@/lib/utils";
 import AddButton from "@/components/Buttons/AddButton";
+import {deleteExpense} from "@/lib/actions/expense.actions";
+import {showToast} from "@/lib/utils/toast";
+import {useQueryClient} from "@tanstack/react-query";
 
 interface Props {
     expenses: Expense[] | undefined;
-    handleDeleteExpense: (id: number | undefined) => void;
 }
 
-export default function ExpenseList({ expenses, handleDeleteExpense }: Props) {
+export default function ExpenseList({ expenses }: Props) {
+    const queryClient = useQueryClient();
+    const handleDeleteExpense = async (id: number | undefined) => {
+        if (!id) return
+        try {
+            const response = await deleteExpense(id);
+            if (!response) {
+                showToast({
+                    title: "Error!",
+                    description: "Failed to delete the expense. Please try again.",
+                    type: "error",
+                });
+                return;
+            }
+
+            queryClient.resetQueries({ queryKey: ["expenses"] })
+
+            showToast({
+                title: "Success!",
+                description: "Expense deleted successfully.",
+                type: "success",
+            });
+        } catch (error) {
+            console.error(error);
+            showToast({
+                title: "Error!",
+                description: "An unexpected error occurred.",
+                type: "error",
+            });
+        }
+    }
     return (
         <div className="relative">
             <Table className="border-t-[1px] max-h-[250px] overflow-scroll">
