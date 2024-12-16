@@ -3,7 +3,7 @@
 import React, {useState} from 'react'
 import {Activity} from "lucide-react";
 import SortSelect from "@/components/forms/SortSelect";
-import ExpenseList from "@/components/ExpenseList";
+import ExpenseList from "@/components/Lists/ExpenseList";
 import TableSkeleton from "@/components/skeletons/TableSkeleton";
 import {deleteExpense} from "@/lib/actions/expense.actions";
 import {showToast} from "@/lib/utils/toast";

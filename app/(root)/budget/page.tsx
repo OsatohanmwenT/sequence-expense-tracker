@@ -1,5 +1,5 @@
 import React from 'react'
-import CategoryOverview from "@/components/CategoryOverview";
+import CategoryOverview from "@/components/section/CategoryOverview";
 import AddCategory from "@/components/Buttons/AddCategory";
 
 const Page = async () => {

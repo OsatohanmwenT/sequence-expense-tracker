@@ -1,6 +1,6 @@
 import { SidebarProvider } from "@/components/ui/sidebar"
 import {AppSidebar} from "@/components/AppSidebar";
-import NavBar from "@/components/NavBar";
+import NavBar from "@/components/Lists/NavBar";
 import React from "react";
 import {redirect} from "next/navigation";
 import {getSession} from "@/lib/auth/session";

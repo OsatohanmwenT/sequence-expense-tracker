@@ -1,6 +1,6 @@
 import React from 'react'
 import {fetchBudgets} from "@/lib/actions/budget.actions";
-import BudgetCard from "@/components/BudgetCard";
+import BudgetCard from "@/components/Card/BudgetCard";
 import {Edit} from "lucide-react";
 import {Button} from "@/components/ui/button";
 import DeactivateButton from "@/components/Buttons/DeactivateButton";

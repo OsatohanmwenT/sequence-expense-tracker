@@ -1,7 +1,7 @@
 import React from 'react'
 import CategoryCardSkeleton from "@/components/skeletons/CategoryCardSkeleton";
 import {useCategoryBudget} from "@/lib/queries/budgetQueries";
-import BudgetCard from "@/components/BudgetCard";
+import BudgetCard from "@/components/Card/BudgetCard";
 import {fetchAllBudgets} from "@/lib/actions/budget.actions";
 import Link from "next/link";
 

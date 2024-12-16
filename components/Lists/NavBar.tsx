@@ -3,8 +3,8 @@
 import React from 'react'
 import {SidebarTrigger} from "@/components/ui/sidebar";
 import SearchInput from "@/components/forms/SearchInput";
-import CalendarRange from "@/components/CalendarRange";
-import DownloadButton from "@/components/DownloadButton";
+import CalendarRange from "@/components/forms/CalendarRange";
+import DownloadButton from "@/components/Buttons/DownloadButton";
 
 const NavBar = () => {
     return (
