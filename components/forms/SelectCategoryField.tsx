@@ -1,4 +1,3 @@
-import {useState} from "react";
 import {Category} from "@/lib/entities";
 import { Label } from "@/components/ui/label"
 import {ExpenseFormValues} from "@/lib/schemas";
@@ -10,11 +9,8 @@ import {
     SelectValue,
 } from "@/components/ui/select"
 import {Controller, useForm} from "react-hook-form";
-import AddCategoryDialog from "@/components/dialogs/CategoryDialog";
-import {Button} from "@/components/ui/button";
-import {PlusCircle} from "lucide-react";
-import CategoryDialog from "@/components/dialogs/CategoryDialog";
 import SelectSkeleton from "@/components/skeletons/SelectSkeleton";
+import AddCategory from "@/components/Buttons/AddCategory";
 
 export interface FormFieldProps {
     label: string;
@@ -28,8 +24,6 @@ interface CategoryFormFieldProps extends Omit<FormFieldProps, 'name'> {
 }
 
 export const CategoryFormField: React.FC<CategoryFormFieldProps> = ({ label, form, categories, isLoading }) => {
-    const [addCategoryOpen, setAddCategoryOpen] = useState(false);
-
     return (
         <div className="grid grid-cols-4 items-center gap-4">
             <Label htmlFor="category" className="text-right">
@@ -43,31 +37,24 @@ export const CategoryFormField: React.FC<CategoryFormFieldProps> = ({ label, for
                         <SelectTrigger className="col-span-3">
                             <SelectValue placeholder="Select a category" />
                         </SelectTrigger>
-                        <SelectContent>
-                            {isLoading ?
-                                (
+                        <SelectContent className="max-h-[400px] overflow-y-auto">
+                            <div className="space-y-1">
+                                {isLoading ? (
                                     <SelectSkeleton />
                                 ) : (
                                     categories?.map((category) => (
-                                        <SelectItem value={category.name} key={category.id}>{category.name}</SelectItem>
-                                    )
-                                ))}
-                            <Button
-                                type="button"
-                                variant="outline"
-                                className="w-full"
-                                onClick={() => setAddCategoryOpen(true)}
-                            >
-                                <PlusCircle className="h-4 w-4" />
-                                Other
-                            </Button>
+                                        <SelectItem value={category.name} key={category.id}>
+                                            {category.name}
+                                        </SelectItem>
+                                    ))
+                                )}
+                            </div>
+                            <div className="pt-2 border-t mt-2">
+                                <AddCategory type="Other" />
+                            </div>
                         </SelectContent>
                     </Select>
                 )}
-            />
-            <CategoryDialog
-                open={addCategoryOpen}
-                onOpenChange={setAddCategoryOpen}
             />
         </div>
     )

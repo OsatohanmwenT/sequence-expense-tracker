@@ -15,24 +15,24 @@ type PostCategoryContext = { previousCategory: Category[] };
 export const usePostCategory = () => {
     const queryClient = useQueryClient();
 
-    return useMutation<Category, Error, Category, PostCategoryContext>({
-        // @ts-ignore
-        mutationFn: create,
-        onMutate: async (newCategory: Category) => {
+    return useMutation<Category, Error, { category: Category; path: string }, PostCategoryContext>({
+    // @ts-ignore
+        mutationFn: ({ category, path }) => create(category, path),  // Pass both category and path
+        onMutate: async (newCategory) => {
             await queryClient.cancelQueries({ queryKey: ["categories"] });
 
             const previousCategory =
                 queryClient.getQueryData<Category[]>(["categories"]) || [];
 
             queryClient.setQueryData<Category[]>(["categories"], (category = []) => [
-                { ...newCategory, id: Math.random() },
+                { ...newCategory.category, id: Math.random() },  // Use the category data
                 ...category,
             ]);
 
             return { previousCategory };
         },
         onSuccess: () => {
-            queryClient.invalidateQueries({ queryKey: ["categories"] })
+            queryClient.invalidateQueries({ queryKey: ["categories"] });
 
             // Show success toast
             showToast({

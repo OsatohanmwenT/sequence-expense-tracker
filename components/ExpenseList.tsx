@@ -13,7 +13,7 @@ import {
 } from "@/components/ui/dropdown-menu"
 import {Expense} from "@/lib/entities";
 import {formatNumber} from "@/lib/utils";
-import AddButton from "@/components/AddButton";
+import AddButton from "@/components/Buttons/AddButton";
 
 interface Props {
     expenses: Expense[] | undefined;

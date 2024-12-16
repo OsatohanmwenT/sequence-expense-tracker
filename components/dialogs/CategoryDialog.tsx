@@ -1,3 +1,5 @@
+"use client"
+
 import * as React from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -14,6 +16,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import {CategoryFormValues, categorySchema} from "@/lib/schemas";
 import {usePostCategory} from "@/lib/queries/categoryQueries";
+import {usePathname} from "next/navigation";
 
 interface AddCategoryDialogProps {
     open: boolean;
@@ -22,6 +25,7 @@ interface AddCategoryDialogProps {
 
 export default function CategoryDialog({ open, onOpenChange }: AddCategoryDialogProps) {
     const { mutate: createCategory } = usePostCategory();
+    const path = usePathname()
     const form = useForm<CategoryFormValues>({
         resolver: zodResolver(categorySchema),
         defaultValues: {
@@ -32,10 +36,11 @@ export default function CategoryDialog({ open, onOpenChange }: AddCategoryDialog
 
     const onSubmit = (data: CategoryFormValues) => {
         onOpenChange(false);
-        createCategory(data, {
+        createCategory({ category: {...data}, path }, {
             onSuccess: () => form.reset()
-        })
+        });
     };
+
 
     return (
         <Dialog open={open} onOpenChange={onOpenChange}>

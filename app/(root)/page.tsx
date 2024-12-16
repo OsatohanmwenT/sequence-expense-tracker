@@ -4,7 +4,7 @@ import ChartSection from "@/components/ChartSection";
 import AnalyticsCard from "@/components/AnalyticsCard";
 import ExpenseOverview from "@/components/ExpenseOverview";
 import CategoryBudgetList from "@/components/CategoryBudgetList";
-import AddButton from "@/components/AddButton";
+import AddButton from "@/components/Buttons/AddButton";
 import {Skeleton} from "@/components/ui/skeleton";
 import AnimatedCounter from "@/components/AnimatedCounter";
 import {fetchSummary} from "@/lib/actions/analytics.actions";
