@@ -8,20 +8,20 @@ export const metadata = {
         title: "Sequence",
         description: "The best way to manage shared expenses seamlessly.",
         url: "https://sequence-expense-tracker.vercel.app/",
-        images: [
-            {
-                url: "/path-to-image.jpg",
-                width: 800,
-                height: 600,
-                alt: "Expense Tracker Preview",
-            },
-        ],
+        // images: [
+        //     {
+        //         url: "/path-to-image.jpg",
+        //         width: 800,
+        //         height: 600,
+        //         alt: "Expense Tracker Preview",
+        //     },
+        // ],
     },
     twitter: {
         card: "summary_large_image",
         title: "Expense Tracker",
         description: "Simplify your shared expenses with ease.",
-        images: ["/path-to-image.jpg"],
+        // images: ["/path-to-image.jpg"],
     },
 };
 
