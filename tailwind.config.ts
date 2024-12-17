@@ -11,6 +11,12 @@ export default {
   	extend: {
 		screens: {
 			xs: "475px",
+			wide: "1440px"
+		},
+		fontSize: {
+			'3xl': ['28px', '50px'],
+			'4xl': ['48px', '58px'],
+			'8xl': ['96px', '106px']
 		},
   		colors: {
   			background: 'hsl(var(--background))',
@@ -93,7 +99,7 @@ export default {
 			"helvetica": ["var(--font-helvetica)"],
 			"work-sans": ["var(--font-work-sans)"],
 			"inter": ["var(--font-inter)"],
-		}
+		},
   	}
   },
   plugins: [require("tailwindcss-animate")],

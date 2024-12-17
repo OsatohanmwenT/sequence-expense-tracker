@@ -55,7 +55,7 @@ const Page = () => {
                 });
 
                 // Redirect to the dashboard or home page
-                router.push('/');
+                router.push('/dashboard');
             } catch (error) {
                 console.error('Error handling authentication:', error);
                 redirect(notFound())

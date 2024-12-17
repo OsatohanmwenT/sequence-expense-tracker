@@ -9,7 +9,7 @@ const CategoryExpenses = async ({id}: {id: string}) => {
         <>
             <div className="xl:col-span-2 border-2 rounded-lg">
                 <div>
-                    <ExpenseList expenses={expenses} />
+                    <ExpenseList expenses={expenses?.expenses} />
                 </div>
                 <div className="h-12 border-t-[1px]"></div>
             </div>

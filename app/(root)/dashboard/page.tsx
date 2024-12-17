@@ -39,7 +39,7 @@ const Page = async () => {
                                 +{formatNumber(percentageRemaining)}%
                             </span>
                         </p>
-                        )
+                    )
                     }
                 </div>
                 <div>

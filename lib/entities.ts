@@ -10,6 +10,16 @@ export interface Expense {
     category_id?:  number;
 }
 
+export interface Expenses {
+    current_page: number;
+    expenses: Expense[];
+    next_page: number | null;
+    per_page: number;
+    prev_page: number | null;
+    total_count: number;
+    total_pages: number;
+}
+
 export interface Category {
     name: string;
     description: string;

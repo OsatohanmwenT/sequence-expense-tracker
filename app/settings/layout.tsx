@@ -2,7 +2,7 @@ import React from 'react'
 import {Metadata} from "next";
 import Link from "next/link";
 import {Separator} from "@/components/ui/separator";
-import SettingsSidebar from "@/components/SettingsSidebar";
+import SettingsSidebar from "@/components/Navigation/SettingsSidebar";
 
 export const metadata: Metadata = {
     title: {

@@ -1,6 +1,6 @@
 "use server"
 
-import {Expense} from "@/lib/entities";
+import {Expense, Expenses} from "@/lib/entities";
 import {getSession} from "@/lib/auth/session";
 import {revalidatePath} from "next/cache";
 
@@ -44,7 +44,7 @@ export const fetchExpense = async (filters: FetchExpenseType) => {
         }
 
         const data = await response.json();
-        return data as Expense[];
+        return data as Expenses;
     }
     catch (error: any) {
         console.error(error.detail || 'Fetch failed');
@@ -71,7 +71,7 @@ export const createExpense = async (expense: Expense) => {
             throw new Error(errorMessage);
         }
 
-        revalidatePath("/");
+        revalidatePath("/dashboard");
 
         return await response.json()
     } catch (error: any) {
@@ -120,7 +120,7 @@ export const deleteExpense = async (expenseId: number) => {
             throw new Error(`Failed to delete expense. Status: ${response.status}`);
         }
 
-        revalidatePath("/");
+        revalidatePath("/dashboard");
 
         return true;
     } catch (error: any) {

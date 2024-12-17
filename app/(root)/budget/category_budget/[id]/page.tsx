@@ -3,9 +3,9 @@ import {fetchBudgets} from "@/lib/actions/budget.actions";
 import BudgetCard from "@/components/Card/BudgetCard";
 import DeactivateButton from "@/components/Buttons/DeactivateButton";
 import DeleteCategory from "@/components/Buttons/DeleteCategory";
-import Form from "@/components/Form";
+import Form from "@/components/forms/Form";
 import EditBudgetCategory from "@/components/Buttons/EditBudgetCategory";
-import CategoryExpenses from "@/components/CategoryExpenses";
+import CategoryExpenses from "@/components/section/CategoryExpenses";
 
 const Page = async ({params}: { params: Promise<{id: string}> }) => {
     const id = (await params).id

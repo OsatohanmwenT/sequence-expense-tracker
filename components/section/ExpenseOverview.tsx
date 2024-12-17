@@ -5,14 +5,13 @@ import {Activity} from "lucide-react";
 import SortSelect from "@/components/forms/SortSelect";
 import ExpenseList from "@/components/Lists/ExpenseList";
 import TableSkeleton from "@/components/skeletons/TableSkeleton";
-import {deleteExpense} from "@/lib/actions/expense.actions";
-import {showToast} from "@/lib/utils/toast";
-import {useQueryClient} from "@tanstack/react-query";
 import {useExpenses} from "@/lib/queries/expenseQueries";
 
 const ExpenseOverview = () => {
     const [filterBy, setFilterBy] = useState<string | null>(null);
     const { data: expenses, isLoading } = useExpenses({ category_name: filterBy || undefined, limit: 10 })
+
+    console.log(expenses)
 
     return (
         <>
@@ -27,7 +26,7 @@ const ExpenseOverview = () => {
                     </div>
                 </div>
                 <div>
-                    {isLoading ? (<TableSkeleton />) : (<ExpenseList expenses={expenses} />)}
+                    {isLoading ? (<TableSkeleton />) : (<ExpenseList expenses={expenses?.expenses} />)}
                 </div>
             </div>
         </>

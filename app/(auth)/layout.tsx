@@ -5,7 +5,7 @@ import {getSession} from "@/lib/auth/session";
 const Layout = async ({ children }: {children: React.ReactNode}) => {
     const access_token = await getSession()
     if(access_token) {
-        return redirect("/");
+        return redirect("/dashboard");
     }
     return (
         <div>

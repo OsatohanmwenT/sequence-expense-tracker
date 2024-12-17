@@ -103,6 +103,33 @@
     @apply bg-green text-white sm:rounded-3xl py-3 sm:py-7 flex items-center
   }
 
+  /* Landing Page */
+  .nav {
+    @apply py-3 px-7 flex-between border-b-[1px] mx-auto;
+  }
+  .nav__link {
+    @apply text-green font-inter;
+  }
+  .nav__link-btn{
+    @apply bg-light-green-200 py-3 hover:bg-light-green-300 transition-all duration-300 px-4 rounded-3xl;
+  }
+  .link-btn {
+    @apply nav__link-btn w-fit mx-auto mt-6 !bg-green hover:!bg-green-200 text-light-green-200;
+  }
+
+  .home_section {
+    @apply w-full bg-neutral-100 flex flex-col pt-14 md:pt-8 min-h-screen;
+  }
+  .bubble-container {
+    @apply p-2 rounded-2xl bg-white;
+  }
+  .heading {
+    @apply font-black font-work-sans max-xs:text-5xl text-7xl lg:text-8xl xl:text-[100px] max-w-screen-sm md:max-w-screen-md mx-auto text-center max-xl:px-5 text-green;
+  }
+  .paragraph {
+    @apply text-sm font-semibold text-neutral-700 text-center max-w-screen-md mx-auto;
+  }
+
   /*Chart*/
   .chart-section {
     @apply border-2 flex flex-col border-gray-200 rounded-2xl py-5 mx-3;
@@ -119,6 +146,7 @@
   .chart-card_info {
     @apply font-semibold text-xl flex items-baseline gap-2 xl:text-3xl text-start;
   }
+
   /* Side Bar*/
   .user-btn{
     @apply px-2 mx-2 mb-2 flex items-center text-lg rounded-xl shadow-2xl hover:shadow-light-green-400/10 transition-all border-2 py-3 gap-2;

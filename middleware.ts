@@ -21,7 +21,7 @@ export async function middleware(request: NextRequest) {
         return NextResponse.next();
     }
 
-    const publicPaths = ["/sign-in"];
+    const publicPaths = ["/sign-in","/"];
     if (publicPaths.some((path) => pathname.startsWith(path))) {
         return NextResponse.next();
     }

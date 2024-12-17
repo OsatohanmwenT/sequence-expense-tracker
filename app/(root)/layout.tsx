@@ -1,5 +1,5 @@
 import { SidebarProvider } from "@/components/ui/sidebar"
-import {AppSidebar} from "@/components/AppSidebar";
+import {AppSidebar} from "@/components/Navigation/AppSidebar";
 import NavBar from "@/components/Lists/NavBar";
 import React from "react";
 import {redirect} from "next/navigation";
