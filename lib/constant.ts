@@ -52,7 +52,7 @@ export const footerLinks: FooterSection[] = [
     {
         title: "Get in touch",
         links: [
-            { name: "customer@shopco.com", link: "mailto:customer@shopco.com" },
+            { name: "customer@sequence.com", link: "mailto:customer@sequence.com" },
             { name: "+92554862354", link: "tel:+92554862354" },
         ],
     },
