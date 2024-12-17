@@ -13,7 +13,7 @@ const Page = () => {
         setIsLoading(true);
         try{
             await deleteUserAccount()
-            await logoutUser()
+            logoutUser()
         } catch (error: any) {
             console.log(error)
             showToast({

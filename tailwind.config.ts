@@ -100,6 +100,9 @@ export default {
 			"work-sans": ["var(--font-work-sans)"],
 			"inter": ["var(--font-inter)"],
 		},
+		backgroundImage: {
+			'intro-bg': "url('./bg-intro-background.png')",
+		},
   	}
   },
   plugins: [require("tailwindcss-animate")],

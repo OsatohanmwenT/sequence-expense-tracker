@@ -1,5 +1,6 @@
 import React from 'react'
 import Link from "next/link";
+import Footer from "@/components/Footer";
 
 export const metadata = {
     title: "Sequence Expense Tracker - Simplify Your Finances",
@@ -42,7 +43,7 @@ const Page = () => {
                     </div>
                 </nav>
             </header>
-            <section className="home_section">
+            <section className="home_section px-2">
                 <div className="relative mt-10 max-h-[450px]">
                     <div className="w-full flex items-center justify-center pointer-events-none"
                          style={{
@@ -57,6 +58,14 @@ const Page = () => {
                 <p className="paragraph mt-6">Introducing Sequence, your all-in-one money management solution for a simpler financial life. Sequence allows you to easily manage your budgets, and finances while also providing the ease of sending and receiving money via UPI.</p>
                 <button className="link-btn">Get started</button>
             </section>
+            <section className="details_section">
+                <div></div>
+                <div className="max-w-xl max-md:px-2 mx-auto">
+                    <p className="heading_title">Simplify your wallet, manage Your cards effortlessly.</p>
+                    <p className="paragraph !text-start !text-base">Sequence allows you to manage all of your credit and debit cards easily. Our simplified app allows you to easily organize and manage many cards in one place, eliminating the need for different banking apps. Sequence streamlines card management by providing features such as transaction monitoring, spending limitations, and real-time notifications, allowing you to effortlessly handle your money.</p>
+                </div>
+            </section>
+            <Footer />
         </>
     )
 }

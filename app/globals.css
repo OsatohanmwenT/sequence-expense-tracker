@@ -130,6 +130,13 @@
     @apply text-sm font-semibold text-neutral-700 text-center max-w-screen-md mx-auto;
   }
 
+  .details_section {
+    @apply w-full bg-white flex flex-col py-14 md:pt-8;
+  }
+  .heading_title {
+    @apply font-semibold text-green font-inter text-3xl leading-10 sm:text-4xl;
+  }
+
   /*Chart*/
   .chart-section {
     @apply border-2 flex flex-col border-gray-200 rounded-2xl py-5 mx-3;
