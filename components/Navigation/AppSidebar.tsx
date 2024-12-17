@@ -1,4 +1,4 @@
-import {Home, Badge, Settings, ChartArea, Group, MoreHorizontal} from "lucide-react"
+import {Home, Badge, Settings, ChartArea, Group} from "lucide-react"
 
 import {
     Sidebar,
@@ -18,10 +18,9 @@ import {
     DropdownMenu,
     DropdownMenuContent,
     DropdownMenuItem,
-    DropdownMenuLabel, DropdownMenuSeparator,
+    DropdownMenuSeparator,
     DropdownMenuTrigger
 } from "@/components/ui/dropdown-menu";
-import {Button} from "@/components/ui/button";
 
 // Menu items.
 const items = [
