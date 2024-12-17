@@ -88,7 +88,7 @@ export async function AppSidebar() {
                                 <AvatarImage src="https://github.com/shadcn.png"/>
                                 <AvatarFallback>CN</AvatarFallback>
                             </Avatar>
-                            <span className="font-semibold">{user?.userData}</span>
+                            <span>{user?.userData}</span>
                         </button>
                     </DropdownMenuTrigger>
                     <DropdownMenuContent className="font-work-sans shadow-xl" align="end">
