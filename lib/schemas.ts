@@ -36,3 +36,20 @@ export const editCategoryBudgetSchema = z.object({
 })
 
 export type CategoryBudgetFormValues = z.infer<typeof editCategoryBudgetSchema>;
+
+const phoneRegex = /^([+]?[\s0-9]+)?(\d{3}|[(]?[0-9]+[)])?([-]?[\s]?[0-9])+$/;
+
+export const profileFormSchema = z.object({
+    full_name: z
+        .string()
+        .min(2, {
+            message: "full name must be at least 2 characters.",
+        })
+        .max(50, {
+            message: "full name must not be longer than 50 characters.",
+        }),
+    phone_number: z.string().regex(phoneRegex, "Invalid phone number format"),
+    bio: z.string().max(160).min(4),
+})
+
+export type ProfileFormValues = z.infer<typeof profileFormSchema>

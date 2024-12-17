@@ -93,6 +93,9 @@
 }
 
 @layer utilities {
+  .logo {
+    @apply text-green text-2xl font-medium;
+  }
   .flex-between {
     @apply flex items-center justify-between;
   }

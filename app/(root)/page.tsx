@@ -17,7 +17,7 @@ const Page = async () => {
 
     const budgetLimit = summary?.budget_limit || 0;
     const totalExpenses = summary?.total_expenses || 0;
-    const amountRemaining = budgetLimit - totalExpenses;
+    const amountRemaining = budgetLimit && totalExpenses < budgetLimit ? budgetLimit - totalExpenses : 0;
     const percentageRemaining = budgetLimit ? (amountRemaining / budgetLimit) * 100 : 0;
 
     return (
