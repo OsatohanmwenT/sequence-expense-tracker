@@ -1,9 +1,6 @@
-"use client"
-
 import React from 'react'
 import {footerLinks} from "@/lib/constant";
 import Link from "next/link";
-import {SendIcon} from "lucide-react";
 
 const Footer = () => {
     return (
@@ -11,28 +8,9 @@ const Footer = () => {
             <div className="grid max-md:place-content-center gap-y-3 max-md:gap-4 sm:grid-cols-2 lg:grid-cols-4">
                 <div className="flex flex-col max-md:items-center">
                     <p className="text-3xl text-white">Sequence</p>
-                    <p className="text-white mt-5 mb-3 max-md:text-center font-inter font-semibold">
-                        Subscribe
+                    <p className="text-white mt-5 mb-3 md:pr-4 max-md:text-center font-inter font-semibold">
+                        Make your complicated finance more simple.
                     </p>
-                    <p className="text-white text-sm mb-3 font-poppins">
-                        Get 10% off your first order
-                    </p>
-                    <form
-                        onSubmit={(event) => {
-                            event.preventDefault();
-                        }}
-                        className="flex items-center w-fit border-white px-2 rounded-sm border-2"
-                    >
-                        <input
-                            className="bg-transparent  py-2 focus:outline-none text-white"
-                            placeholder="Enter your email"
-                            type="text"
-                            name="subscribe user"
-                        />
-                        <button aria-label="Sumbit button">
-                            <SendIcon className="size-6" />
-                        </button>
-                    </form>
                 </div>
                 {footerLinks.map((items) => (
                     <div
@@ -50,10 +28,11 @@ const Footer = () => {
                     </div>
                 ))}
             </div>
-            <div className="flex max-md:flex-col mt-2 items-center md:justify-between">
-        <span className="text-gray text-sm mb-2 font-light font-inter">
-          Shop.co © 2000-2024, All Rights Reserved
-        </span>
+            <div className="px-4 py-2 rounded-xl mt-4 bg-stone-100">
+                <span
+                className="text-gray text-sm mb-2 font-inter">
+                    Sequence © 2000-2024, All Rights Reserved
+                </span>
             </div>
         </footer>
     );

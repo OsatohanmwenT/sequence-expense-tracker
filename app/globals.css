@@ -131,7 +131,7 @@
   }
 
   .details_section {
-    @apply w-full bg-white flex flex-col py-14 md:pt-8;
+    @apply w-full bg-white flex flex-col py-14 md:pt-8 px-4;
   }
   .heading_title {
     @apply font-semibold text-green font-inter text-3xl leading-10 sm:text-4xl;

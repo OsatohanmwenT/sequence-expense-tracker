@@ -25,14 +25,22 @@ export const footerLinks: FooterSection[] = [
     {
         title: "Account",
         links: [
-            { name: "Wishlist", link: "/" },
-            { name: "Cart", link: "/" },
-            { name: "Shop", link: "/" },
+            { name: "Payment", link: "/" },
+            { name: "Card", link: "/" },
+            { name: "Pricing", link: "/" },
             { name: "Login / Register", link: "/" },
         ],
     },
     {
-        title: "Help",
+        title: "Product",
+        links: [
+            { name: "Personal", link: "/" },
+            { name: "Business", link: "/" },
+            { name: "Invoice", link: "/" },
+        ],
+    },
+    {
+        title: "Company",
         links: [
             { name: "About us", link: "/" },
             { name: "FAQs", link: "/" },
