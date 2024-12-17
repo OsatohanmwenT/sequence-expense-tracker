@@ -10,6 +10,7 @@ import {LoaderCircle} from "lucide-react";
 const Page = () => {
     const [isLoading, setIsLoading] = useState(false);
     const deleteAccount = async () => {
+        setIsLoading(true);
         try{
             await deleteUserAccount()
             await logoutUser()
@@ -20,6 +21,8 @@ const Page = () => {
                 description: error.message || "Failed to update profile.",
                 type: "error",
             });
+        }finally {
+            setIsLoading(false);
         }
     }
 
