@@ -11,8 +11,6 @@ const ExpenseOverview = () => {
     const [filterBy, setFilterBy] = useState<string | null>(null);
     const { data: expenses, isLoading } = useExpenses({ category_name: filterBy || undefined, limit: 10 })
 
-    console.log(expenses)
-
     return (
         <>
             <div className="xl:col-span-2 border-2 rounded-lg">
