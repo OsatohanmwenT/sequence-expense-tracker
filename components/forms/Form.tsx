@@ -10,9 +10,11 @@ import TextFormField from "@/components/forms/TextFormField";
 import {Button} from "@/components/ui/button";
 import {createExpense} from "@/lib/actions/expense.actions";
 import {showToast} from "@/lib/utils/toast";
+import {useQueryClient} from "@tanstack/react-query";
 
 const Form = ({id}: {id: string}) => {
     const [loading, setLoading] = useState(false);
+    const queryClient = useQueryClient();
     const form = useForm<expenseBudgetValues>({
         resolver: zodResolver(expenseBudgetSchema),
         defaultValues: {
@@ -28,6 +30,12 @@ const Form = ({id}: {id: string}) => {
         try {
             await createExpense(fullData)
             form.reset()
+            queryClient.invalidateQueries({queryKey: ["expenses"]})
+            showToast({
+                title: "Success!",
+                description: "created expense successfully.",
+                type: "success",
+            });
         } catch (error: any) {
             console.error(error);
             showToast({

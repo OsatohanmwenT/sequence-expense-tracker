@@ -9,7 +9,7 @@ import {useExpenses} from "@/lib/queries/expenseQueries";
 
 const ExpenseOverview = () => {
     const [filterBy, setFilterBy] = useState<string | null>(null);
-    const { data: expenses, isLoading } = useExpenses({ category_name: filterBy || undefined, limit: 10 })
+    const { data: expenses, isLoading } = useExpenses({category_name: filterBy || undefined, limit: 10})
 
     return (
         <>

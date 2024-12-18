@@ -13,9 +13,9 @@ export interface Expense {
 export interface Expenses {
     current_page: number;
     expenses: Expense[];
-    next_page: number | null;
+    next_page: string | null;
     per_page: number;
-    prev_page: number | null;
+    prev_page: string | null;
     total_count: number;
     total_pages: number;
 }

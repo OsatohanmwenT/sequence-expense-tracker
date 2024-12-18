@@ -16,7 +16,7 @@ export interface FetchExpenseType {
     keyword?: string,
 }
 
-export const fetchExpense = async (filters: FetchExpenseType) => {
+export const fetchExpense = async (filters: FetchExpenseType, preUrl: string | null) => {
     const access_token = await getSession()
     const queryParams = new URLSearchParams(
         Object.entries(filters).reduce((acc, [key, value]) => {
@@ -26,8 +26,11 @@ export const fetchExpense = async (filters: FetchExpenseType) => {
             return acc;
         }, {} as Record<string, string>)
     );
+    const adjustedUrl = preUrl?.split("?")
+    const normalizedUrl = adjustedUrl?.join("/?")
+    console.log(`${url}${normalizedUrl}`)
 
-    const fullUrl = `${url}/expenses/?${queryParams.toString()}`;
+    const fullUrl = preUrl ? `${url}${normalizedUrl}` : `${url}/expenses/?${queryParams.toString()}`;
 
     try {
         const response = await fetch(fullUrl, {
