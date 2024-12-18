@@ -1,6 +1,8 @@
 import React from 'react'
 import Link from "next/link";
 import Footer from "@/components/Footer";
+import {getSession} from "@/lib/auth/session";
+import {redirect} from "next/navigation";
 
 export const metadata = {
     title: "Sequence Expense Tracker - Simplify Your Finances",
@@ -27,7 +29,12 @@ export const metadata = {
 };
 
 
-const Page = () => {
+const Page = async () => {
+    const session = await getSession();
+    if (!session) {
+        redirect("/dashboard");
+    }
+
     return (
         <>
             <header>

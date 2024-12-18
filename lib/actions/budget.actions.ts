@@ -3,7 +3,7 @@
 import {BudgetCategory} from "@/lib/entities";
 import {getSession} from "@/lib/auth/session";
 import {revalidatePath} from "next/cache";
-import {CategoryBudgetFormValues} from "@/lib/schemas";
+import {BudgetFormValues} from "@/lib/schemas";
 
 const url = process.env.NEXT_PUBLIC_API_URL;
 
@@ -79,7 +79,59 @@ export const deactivateBudget = async (category_name: string) => {
     }
 }
 
-export const editBudget = async (category_name: string, path: string, budget: CategoryBudgetFormValues) => {
+export const createBudget = async (path: string, budget: BudgetFormValues) => {
+    const session = await getSession();
+    try {
+        const response = await fetch(`${url}/budget/`, {
+            method: "POST",
+            headers: {
+                Accept: "application/json",
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${session?.access_token}`,
+            },
+            body: JSON.stringify(budget),
+        })
+
+        if (!response.ok) {
+            const error = await response.json();
+            throw new Error(error.detail || "Failed to update budget.");
+        }
+
+        revalidatePath(path);
+        return await response.json();
+    } catch (error: any) {
+        console.error("Error updating budget:", error.message);
+        throw error;
+    }
+}
+
+export const editBudget = async (path: string, budget: BudgetFormValues) => {
+    const session = await getSession();
+    try {
+        const response = await fetch(`${url}/budget/`, {
+            method: "PUT",
+            headers: {
+                Accept: "application/json",
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${session?.access_token}`,
+            },
+            body: JSON.stringify(budget),
+        })
+
+        if (!response.ok) {
+            const error = await response.json();
+            throw new Error(error.detail || "Failed to update budget.");
+        }
+
+        revalidatePath(path);
+        return await response.json();
+    } catch (error: any) {
+        console.error("Error updating budget:", error.message);
+        throw error;
+    }
+}
+
+export const editBudgetCategory = async (category_name: string, path: string, budget: BudgetFormValues) => {
     const session = await getSession();
     try {
         const response = await fetch(`${url}/category_budgets/${category_name}`, {
@@ -104,3 +156,4 @@ export const editBudget = async (category_name: string, path: string, budget: Ca
         throw error;
     }
 }
+

@@ -66,7 +66,7 @@ export default function ExpenseList({ expenses }: Props) {
 
     return (
         <div className="relative">
-            <Table className="border-t-[1px] max-h-[500px] overflow-scroll">
+            <Table className="border-t-[1px] overflow-scroll">
                 <TableHeader>
                     <TableRow className="font-work-sans text-light-green-200">
                         <TableHead className="w-[110px] lg:w-[150px]">Amount</TableHead>

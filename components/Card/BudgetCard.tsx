@@ -13,7 +13,7 @@ const BudgetCard = ({ category_name, amount_limit, amount_used, start_date, end_
     const remainingAmount = Math.max(0, (amount_limit || 0) - (amount_used || 0));
 
     return (
-    <div className="border-[1px] font-work-sans py-5 px-3 rounded-lg">
+    <div className="border-[1px] bg-white font-work-sans py-5 px-3 rounded-lg">
         <div className="flex items-center justify-end">
         </div>
         <div className="flex-between">

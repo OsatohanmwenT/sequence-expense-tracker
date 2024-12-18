@@ -4,6 +4,11 @@ import {useCategoryBudget} from "@/lib/queries/budgetQueries";
 import BudgetCard from "@/components/Card/BudgetCard";
 import {fetchAllBudgets} from "@/lib/actions/budget.actions";
 import Link from "next/link";
+import {BudgetCategory} from "@/lib/entities";
+
+interface Props {
+    categories: BudgetCategory[]
+}
 
 const CategoryOverview = async () => {
     const categories = await fetchAllBudgets()

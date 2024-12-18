@@ -8,6 +8,7 @@ const Layout = async ({ children }: {children: React.ReactNode}) => {
     if(access_token) {
         return redirect("/dashboard");
     }
+
     return (
         <div>
             <div className="max-w-[400px] px-4 mx-auto">

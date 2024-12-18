@@ -69,7 +69,7 @@ export default function CategoryDialog({ open, onOpenChange }: AddCategoryDialog
                                 Description
                             </Label>
                             <div className="col-span-3">
-                                <Input id="name" {...form.register("description")} />
+                                <Input id="description" {...form.register("description")} />
                                 {form.formState.errors.description && (
                                     <p className="text-sm text-red-500">{form.formState.errors.description.message}</p>
                                 )}

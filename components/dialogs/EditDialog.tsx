@@ -8,7 +8,7 @@ import {
     DialogTitle,
 } from "@/components/ui/dialog"
 import {useForm} from "react-hook-form";
-import {CategoryBudgetFormValues, editCategoryBudgetSchema} from "@/lib/schemas";
+import {BudgetFormValues, editBudgetSchema} from "@/lib/schemas";
 import {zodResolver} from "@hookform/resolvers/zod";
 import NumberFormField from "@/components/forms/NumberFormField";
 import React, {useState} from "react";
@@ -17,13 +17,14 @@ import CalenderFormField from "@/components/forms/CalenderFormField";
 interface Props {
     isOpen: boolean;
     loading: boolean;
+    isCategory: boolean;
     setIsOpen: (isOpen: boolean) => void;
-    onEdit: (data: CategoryBudgetFormValues) => void;
+    onEdit: (data: BudgetFormValues) => void;
 }
 
-export default function EditDialog({ isOpen, loading, setIsOpen, onEdit }: Props) {
-    const form = useForm<CategoryBudgetFormValues>({
-        resolver: zodResolver(editCategoryBudgetSchema),
+export default function EditDialog({ isOpen, loading, setIsOpen, onEdit, isCategory }: Props) {
+    const form = useForm<BudgetFormValues>({
+        resolver: zodResolver(editBudgetSchema),
         defaultValues: {
             amount_limit: 0,
             start_date: "",
@@ -35,7 +36,7 @@ export default function EditDialog({ isOpen, loading, setIsOpen, onEdit }: Props
         <Dialog open={isOpen} onOpenChange={setIsOpen}>
             <DialogContent className="sm:max-w-[425px]">
                 <DialogHeader>
-                    <DialogTitle>Edit Category Budget</DialogTitle>
+                    <DialogTitle>Edit {isCategory && "Category"} Budget</DialogTitle>
                     <DialogDescription>
                         Make changes to your budget here. Click save when you're done.
                     </DialogDescription>

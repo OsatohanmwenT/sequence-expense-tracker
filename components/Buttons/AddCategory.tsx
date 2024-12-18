@@ -15,7 +15,7 @@ const AddCategory = ({type}: {type: TypeButton}) => {
             <Button
                 type="button"
                 variant="outline"
-                className="w-full"
+                className={type === "Add Category"? "" : "w-full"}
                 onClick={() => setAddCategoryOpen(true)}
             >
                 <PlusCircle className="h-4 w-4 mr-2" />
