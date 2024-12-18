@@ -28,7 +28,6 @@ export const fetchExpense = async (filters: FetchExpenseType, preUrl: string | n
     );
     const adjustedUrl = preUrl?.split("?")
     const normalizedUrl = adjustedUrl?.join("/?")
-    console.log(`${url}${normalizedUrl}`)
 
     const fullUrl = preUrl ? `${url}${normalizedUrl}` : `${url}/expenses/?${queryParams.toString()}`;
 

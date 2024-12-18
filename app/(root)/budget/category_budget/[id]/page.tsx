@@ -7,9 +7,8 @@ import Form from "@/components/forms/Form";
 import EditBudgetCategory from "@/components/Buttons/EditBudgetCategory";
 import CategoryExpenses from "@/components/section/CategoryExpenses";
 
-const Page = async ({params, searchParams}: { params: Promise<{id: string}>, searchParams: Promise<{ [key: string]: string | undefined }> }) => {
+const Page = async ({params}: { params: Promise<{id: string}>}) => {
     const id = (await params).id
-    const limit = (await searchParams).limit;
     const budget = await fetchBudgets(id)
 
     if (!budget) {
