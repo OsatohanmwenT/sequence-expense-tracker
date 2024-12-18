@@ -22,7 +22,6 @@ const CategoryExpenses = ({id}: {id: string}) => {
     const [limit, setLimit] = React.useState<number|undefined>(undefined)
     const queryClient = useQueryClient();
     const { data: expenses, isLoading } = useExpenses({ limit: limit || 10, category_name: id }, url);
-    console.log(expenses);
 
     const handleLimitChange = (value: string) => {
         setLimit(Number(value));
