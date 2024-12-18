@@ -5,7 +5,6 @@ import {formatNumber} from "@/lib/utils";
 import StatusTag from "@/components/StatusTag";
 
 const BudgetCard = ({ category_name, amount_limit, amount_used, start_date, end_date, status }: BudgetCategory) => {
-    console.log(amount_limit, amount_used);
 
     const remainingPercentage = amount_limit && amount_used
         ? Math.max(0, 100 - ((amount_limit - amount_used) / amount_limit) * 100)
