@@ -9,7 +9,7 @@
 3. 🔋 [Features](#features)
 4. 🤸 [Quick Start](#quick-start)
 5. 🔗 [Assets](#links)
-6. 🚧 [Areas for Improvement](#areas-for-improvement)
+6. 🚧 [To-Do](#to-do)
 7. 🚀 [More](#more)
 
 ## <a name="introduction">🤖 Introduction</a>
@@ -63,5 +63,27 @@ The Sequence Expense Tracker is a comprehensive tool for managing personal and g
 - [Repository](https://github.com/OsatohanmwenT/sequence-expense-tracker)
 - [Report Issues](https://github.com/OsatohanmwenT/sequence-expense-tracker/issues)
 
-Let me know if you’d like further refinements!😊
+## <a name="to-do">🚀 To-Do / Areas for Improvement</a>
+Here are some areas we plan to enhance or add in the future:
 
+- ### Group Management:
+
+  - Improved tools for managing group expenses.
+  - Enhanced support for splitting bills and sharing expenses among group members.
+- ### Advanced Analytics:
+
+  - Detailed reports on spending habits.
+  - Trends and forecasts for better financial insights.
+- ### Payment System:
+
+  - Integration with payment gateways for direct expense settlement.
+  - Allow users to settle shared expenses via secure payments.
+- ### Performance and Optimization:
+
+  - Continued focus on scalability for larger datasets.
+  - Improved load times and responsiveness.
+
+- ### Development Decisions
+  ##### State Management Approach
+    - Deciding between React Query and Server Actions for state management consistency and server-side synchronization.
+    - Assessing trade-offs between server-heavy actions versus client-side caching for real-time updates.
