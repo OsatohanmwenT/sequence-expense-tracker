@@ -54,7 +54,6 @@ export default function ExpenseDialog({ open, setIsOpen, type, initialValues }: 
 
     const onSubmit = async (data: ExpenseFormValues) => {
         setIsLoading(true);
-        console.log(data)
         try {
             if (type === "update") {
                 await updateExpense(initialValues?.id, data, path);
