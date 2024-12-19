@@ -1,5 +1,4 @@
-import {ExpenseFormValues} from "@/lib/schemas";
-import {FieldValues, useForm, UseFormReturn} from "react-hook-form";
+import {FieldValues, UseFormReturn} from "react-hook-form";
 
 export interface Expense {
     amount: number;
