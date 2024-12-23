@@ -37,7 +37,7 @@ const Page = () => {
     return (
         <div>
             <h1 className="text-2xl font-semibold mb-3 tracking-tight">Account</h1>
-            <p className="text-muted-foreground mb-3">Are you sure you want to delete your account permanantly this?</p>
+            <p className="text-muted-foreground mb-3">Are you sure you want to delete your account permanently?</p>
             <Button className="hover:bg-red-500" onClick={deleteAccount}>Delete</Button>
         </div>
     )
