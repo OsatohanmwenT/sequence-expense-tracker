@@ -17,7 +17,7 @@ const Layout = ({children}: {children: React.ReactNode}) => {
             <>
                 <header>
                     <nav className="py-4 px-3 flex-between shadow-sm border-b-2">
-                        <Link href="." className="logo">Sequence</Link>
+                        <Link href="/dashboard" className="logo">Sequence</Link>
                         <button className="font-work-sans">
                             Logout
                         </button>
