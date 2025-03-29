@@ -72,7 +72,7 @@ const AuthForm = ({ type }: {type: FormType}) => {
 
     const handleGoogleLogin = async () => {
         try {
-            const response = await fetch("https://expense-tracker-api-production-3dfe.up.railway.app/auth/login/google",{
+            const response = await fetch("https://expense-tracker-api-production-8aea.up.railway.app/auth/login/google",{
                 method: "GET",
             })
             if(!response.ok) {
